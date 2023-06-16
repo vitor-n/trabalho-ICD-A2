@@ -1,3 +1,0 @@
-from import_data import import_df_for_bokeh
-
-sp_housing = import_df_for_bokeh("sp_housing.csv")
