@@ -2,21 +2,5 @@ from import_data import import_df_for_bokeh
 from bokeh.plotting import figure
 from bokeh.io import output_file, save
 
-sp_housing = import_df_for_bokeh("sp_housing.csv")
+arabica_coffee = import_df_for_bokeh("df_arabica_clean.csv")
 
-zones = {"Centro" : ["Sé", "Bela Vista", "Bom Retiro", "Cambuci", "Consolação", "Liberdade", "República", "Santa Cecília", "Sé"],
-         
-         "Leste" : ["Aricanduva", "Carrão", "Vila Formosa", "Cidade Tiradentes", "Ermelino Matarazzo", "Ponte Rasa", "Guaianases", "Lajeado",
-           "Itaim Paulista","Vila Curuçá", "Itaquera", "Cidade Líder", "José Bonifácio", "Parque do Carmo", "Mooca Água Rasa", "Belém", "Brás",
-           "Moóca", "Pari", "Tatuapé", "Penha", "Artur Alvim", "Cangaíba", "Penha", "Vila Matilde", "São Mateus", "São Rafael",
-           "São Miguel" , "Jardim Helena", "Vila Jacuí", "Sapopemba", "Vila Prudente", "São Lucas"], 
-           
-        "Norte" : ["Casa Verde", "Cachoeirinha", "Limão", "Brasilândia", "Freguesia do Ó", "Jaçanã", "Tremembé", "Perus", "Anhanguera",
-         "Pirituba", "Jaraguá", "São Domingos", "Santana", "Tucuruvi", "Mandaqui", "Vila Maria", "Vila Guilherme", "Vila Medeiros"],
-         
-        "Oeste" : ["Butantã", "Morumbi", "Raposo Tavares", "Rio Pequeno", "Vila Sônia", "Lapa", "Barra Funda", "Jaguara", "Jaguaré",
-          "Perdizes", "Vila Leopoldina", "Pinheiros", "Alto de Pinheiros", "Itaim Bibi", "Jardim Paulista", "Pinheiros"],
-          
-        "Sul" : ["Campo Limpo", "Capão Redondo", "Vila Andrade", "Capela do Socorro Cidade Dutra", "Grajaú", "Socorro", "Cidade Ademar", "Pedreira",
-         "Ipiranga", "Sacomã", "Jabaquara", "M'Boi Mirim", "Jardim Ângela", "Jardim São Luís", "Parelheiros", "Marsilac", "Santo Amaro",
-         "Campo Belo", "Campo Grande", "Santo Amaro", "Moema", "Saúde", "Vila Mariana"]}
