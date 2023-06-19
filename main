@@ -4,3 +4,97 @@ from bokeh.io import output_file, save
 
 arabica_coffee = import_df_for_bokeh("df_arabica_clean.csv")
 
+#Cleaning names badly written in the "Country of Origin" column
+arabica_coffee["Country of Origin"] = arabica_coffee["Country of Origin"].replace(["Tanzania, United Republic Of"], "Tanzania")
+arabica_coffee["Country of Origin"] = arabica_coffee["Country of Origin"].replace(["United States (Hawaii)"], "Hawaii")
+
+#First graph
+def L_aroma_aftertaste(datapath):
+
+    countries_and_amount_occurences = datapath["Country of Origin"].value_counts().to_frame().reset_index()
+    countries_and_amount_occurences.columns = ["Countries", "Amount of Occurences"]
+    dict_countries_and_amount_occurences = dict(zip(countries_and_amount_occurences["Countries"],
+                                                     countries_and_amount_occurences["Amount of Occurences"]))
+
+
+    def mean_countries_aroma_aftertaste(datapath):
+        """Creates a dicionary of which the keys are different countries and
+        the values are lists of the mean aroma and aftertaste"""
+
+        aroma_aftertaste = {}
+        for index_of_table in range(len(datapath["Country of Origin"])):
+
+            country = datapath["Country of Origin"][index_of_table]
+            aroma = datapath["Aroma"][index_of_table]
+            aftertaste = datapath["Aftertaste"][index_of_table]
+
+            #If the country already exists in aroma_aftertaste, its value will be the current value of aroma and aftertaste.
+            #Otherwise, we add the existing value in aroma_aftertaste with the current values
+            if country not in aroma_aftertaste:
+                aroma_aftertaste[country] = [aroma, aftertaste]
+            else:
+                aroma_aftertaste[country] = [ x + y for x, y in zip(aroma_aftertaste[country], [aroma, aftertaste]) ]
+    
+        #Divide the associated with each country by its amount of occurences, giving us the mean values
+        mean_aroma_aftertaste = aroma_aftertaste
+        for country1 in dict_countries_and_amount_occurences:
+            for country2 in aroma_aftertaste:
+                if country1 == country2:
+                    mean_aroma_aftertaste[country1] = [x / dict_countries_and_amount_occurences[country1] for x in aroma_aftertaste[country1]]
+        
+        return mean_aroma_aftertaste
+
+
+    axis = mean_countries_aroma_aftertaste(datapath)
+
+    #Creating CDS object
+    data = {"x" : [value[0] for value in axis.values()],
+            "y" : [value[1] for value in axis.values()],
+            "countries" : [key for key in axis.keys()]}
+    data= ColumnDataSource(data=data)
+   
+    #Creating the plot
+    p = figure(width = 1000, height = 700)
+    
+    glyph = Circle(x="x", y="y", fill_color = "#732C02", line_color = "#732C02", size = 4)
+    p.add_glyph(data, glyph)
+
+    #Points' labels
+    labels = LabelSet(x="x", y = "y", text="countries",
+                       text_font_size = "8pt", text_font = "Modern Love", text_font_style = "bold",
+                         x_offset = 2, y_offset=0, source=data)
+    
+    #Axis
+    p.x_range = Range1d(7.2, 8.2)
+    p.y_range = Range1d(7.2, 8)
+    p.xaxis.axis_label = "Mean aroma"
+    p.xaxis.axis_label_text_font_size = '15px'
+    p.xaxis.axis_label_text_font = "Modern Love"
+    p.xaxis.axis_label_text_font_style = "bold"
+    p.yaxis.axis_label = "Mean aftertaste"
+    p.yaxis.axis_label_text_font_size = "15px"
+    p.yaxis.axis_label_text_font = "Modern Love"
+    p.yaxis.axis_label_text_font_style = "bold"
+    p.add_layout(labels)
+
+    #Title
+    p.title.text = "Mean aroma and aftertaste by country"
+    p.title.text_font = "Modern Love"
+    p.title.text_font_size = "30px"
+    p.title.align = "left"
+    
+    #Grid
+    p.xgrid.grid_line_color = None
+    p.ygrid.grid_line_color = None
+
+    #Background
+    p.background_fill_color = "#F2C1AE"
+    p.background_fill_alpha = 0.3
+
+    #Toolbar
+    p.toolbar.logo = None
+    p.toolbar.autohide = True 
+
+    show(p)
+
+L_aroma_aftertaste(arabica_coffee)
