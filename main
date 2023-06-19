@@ -95,6 +95,4 @@ def L_aroma_aftertaste(datapath):
     p.toolbar.logo = None
     p.toolbar.autohide = True 
 
-    show(p)
-
-L_aroma_aftertaste(arabica_coffee)
+    return show(p)
