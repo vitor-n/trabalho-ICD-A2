@@ -10,17 +10,15 @@ arabica_coffee["Country of Origin"] = arabica_coffee["Country of Origin"].replac
 
 #First graph
 def L_aroma_aftertaste(datapath):
-
-    countries_and_amount_occurences = datapath["Country of Origin"].value_counts().to_frame().reset_index()
-    countries_and_amount_occurences.columns = ["Countries", "Amount of Occurences"]
-    dict_countries_and_amount_occurences = dict(zip(countries_and_amount_occurences["Countries"],
-                                                     countries_and_amount_occurences["Amount of Occurences"]))
-
-
     def mean_countries_aroma_aftertaste(datapath):
         """Creates a dicionary of which the keys are different countries and
         the values are lists of the mean aroma and aftertaste"""
 
+        countries_and_amount_occurences = datapath["Country of Origin"].value_counts().to_frame().reset_index()
+        countries_and_amount_occurences.columns = ["Countries", "Amount of Occurences"]
+        dict_countries_and_amount_occurences = dict(zip(countries_and_amount_occurences["Countries"],
+                                                         countries_and_amount_occurences["Amount of Occurences"]))
+                                                     
         aroma_aftertaste = {}
         for index_of_table in range(len(datapath["Country of Origin"])):
 
