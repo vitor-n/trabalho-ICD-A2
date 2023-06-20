@@ -1,4 +1,5 @@
 import pandas as pd
+from import_data import import_df_for_bokeh
 
 def df_variety_method(datapath):
     #Creating new dataframe for manipulation
@@ -9,6 +10,12 @@ def df_variety_method(datapath):
     df_varieties_method = df_varieties_method.dropna(subset="Variety")
     df_varieties_method = df_varieties_method[df_varieties_method["Variety"] != "unknown"]
     df_varieties_method = df_varieties_method[df_varieties_method["Variety"] != "unknow"]
+    
+    #Fixing bad names in "Processing Method" column
+    arabica_coffee["Processing Method"] = arabica_coffee["Processing Method"].replace(["SEMI-LAVADO"], "Semi Washed")
+    arabica_coffee["Processing Method"] = arabica_coffee["Processing Method"].replace(["Honey,Mossto"], "Mossto / Honey")
+    arabica_coffee["Processing Method"] = arabica_coffee["Processing Method"].replace(["Pulped natural / honey"], "Pulped Natural / Honey")
+    arabica_coffee["Processing Method"] = arabica_coffee["Processing Method"].replace(["Anaerobico 1000h"], "Double Anaerobic Washed")
 
     #Fixing bad names in the "Variety" column
     df_varieties_method["Variety"] = df_varieties_method["Variety"].str.replace("+", ",")
