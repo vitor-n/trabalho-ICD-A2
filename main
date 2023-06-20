@@ -1,6 +1,10 @@
 from import_data import import_df_for_bokeh
+from df_manipulations import df_variety_method
 from bokeh.plotting import figure
-from bokeh.io import output_file, save
+from bokeh.io import output_file, save, show
+from bokeh.models import ColumnDataSource, LabelSet, Range1d, ImageURL, Circle, Title
+from bokeh.palettes import Category20
+import pandas as pd
 
 arabica_coffee = import_df_for_bokeh("df_arabica_clean.csv")
 
