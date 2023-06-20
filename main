@@ -94,3 +94,58 @@ def L_aroma_aftertaste(datapath):
     p.toolbar.autohide = True 
 
     return show(p)
+
+#Second graph
+def L_variety_method(datapath):
+    df = df_variety_method(datapath=datapath)
+    
+    #Color palette for the bars
+    colors = Category20[len(df["Processing Method"].unique())]
+    
+    # Group the DataFrame by "Variety" and "Processing Method" and calculate the count
+    grouped = df.groupby(["Variety", "Processing Method"]).size().unstack()
+    varieties = grouped.index.tolist()
+    p = figure(x_range=varieties, height=700, width = 1400)
+    
+    #Stacked bar chart for each processing method
+    for index, method in enumerate(grouped.columns):
+        p.vbar(x=varieties, top=grouped[method], width=0.8, color=colors[index],
+            legend_label=method)
+    
+    #Legends
+    p.legend.location = "center"
+    p.add_layout(p.legend[0], 'right')
+
+    #Grid
+    p.xgrid.grid_line_color = None
+    p.ygrid.grid_line_color = None
+
+
+    #Axis
+    p.xaxis.axis_label = "Coffee varieties"
+    p.xaxis.axis_label_text_font_size = '15px'
+    p.xaxis.axis_label_text_font = "Modern Love"
+    p.xaxis.axis_label_text_font_style = "bold"
+    p.xaxis.major_label_orientation = "vertical"
+
+    p.yaxis.axis_label = "Number of lots"
+    p.yaxis.axis_label_text_font_size = "15px"
+    p.yaxis.axis_label_text_font = "Modern Love"
+    p.yaxis.axis_label_text_font_style = "bold"
+
+    #Title
+    title = Title(text="Processing methods by coffee variety",
+                   text_font_size="25pt",
+                   text_font="Comic Sans",
+                   align = "left")
+    p.title = title
+
+    #Background
+    p.background_fill_color = "#FFC300"
+    p.background_fill_alpha = 0.2
+
+    #Toolbar
+    p.toolbar.logo = None
+    p.toolbar.autohide = True 
+
+    return show(p)
