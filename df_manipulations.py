@@ -1,3 +1,5 @@
+import pandas as pd
+
 def df_variety_method(datapath):
     #Creating new dataframe for manipulation
     df_varieties_method = datapath
@@ -67,4 +69,4 @@ def df_variety_method(datapath):
         "Processing Method" : smooth_new_methods
     }
 
-    return new_df
+    return pd.DataFrame(new_df)
