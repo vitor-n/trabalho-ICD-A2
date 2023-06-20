@@ -12,10 +12,10 @@ def df_variety_method(datapath):
     df_varieties_method = df_varieties_method[df_varieties_method["Variety"] != "unknow"]
     
     #Fixing bad names in "Processing Method" column
-    arabica_coffee["Processing Method"] = arabica_coffee["Processing Method"].replace(["SEMI-LAVADO"], "Semi Washed")
-    arabica_coffee["Processing Method"] = arabica_coffee["Processing Method"].replace(["Honey,Mossto"], "Mossto / Honey")
-    arabica_coffee["Processing Method"] = arabica_coffee["Processing Method"].replace(["Pulped natural / honey"], "Pulped Natural / Honey")
-    arabica_coffee["Processing Method"] = arabica_coffee["Processing Method"].replace(["Anaerobico 1000h"], "Double Anaerobic Washed")
+    df_varieties_method ["Processing Method"] = df_varieties_method ["Processing Method"].replace(["SEMI-LAVADO"], "Semi Washed")
+    df_varieties_method ["Processing Method"] = df_varieties_method ["Processing Method"].replace(["Honey,Mossto"], "Mossto / Honey")
+    df_varieties_method ["Processing Method"] = df_varieties_method ["Processing Method"].replace(["Pulped natural / honey"], "Pulped Natural / Honey")
+    df_varieties_method ["Processing Method"] = df_varieties_method ["Processing Method"].replace(["Anaerobico 1000h"], "Double Anaerobic Washed")
 
     #Fixing bad names in the "Variety" column
     df_varieties_method["Variety"] = df_varieties_method["Variety"].str.replace("+", ",")
