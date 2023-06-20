@@ -1,9 +1,9 @@
 def df_variety_method(datapath):
     #Creating new dataframe for manipulation
     df_varieties_method = datapath
-    df_varieties_method = df_varieties_method.dropna(subset="Processing Method")
 
     #Deleting rows with missing values
+    df_varieties_method = df_varieties_method.dropna(subset="Processing Method")
     df_varieties_method = df_varieties_method.dropna(subset="Variety")
     df_varieties_method = df_varieties_method[df_varieties_method["Variety"] != "unknown"]
     df_varieties_method = df_varieties_method[df_varieties_method["Variety"] != "unknow"]
