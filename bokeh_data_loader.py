@@ -12,10 +12,8 @@ def cds_from_csv(path):
             bokeh.models.ColumnDataSource: A ColumnDataSource object containing the data from the CSV file
     """
 
-    sp_housing_df = pd.read_csv(path)
+    df = pd.read_csv(path)
 
-    sp_housing_df = sp_housing_df[sp_housing_df["area"] > 5]
-
-    cds = ColumnDataSource(sp_housing_df)
+    cds = ColumnDataSource(df)
 
     return cds
