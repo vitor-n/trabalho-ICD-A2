@@ -28,8 +28,8 @@ def apply_default_style(p):
     p.ygrid.grid_line_color = None
 
     #Background
-    p.background_fill_color = "#F2C1AE"
-    p.background_fill_alpha = 0.3
+    p.background_fill_color = "#FFC300"
+    p.background_fill_alpha = 0.2
 
     #Toolbar
     p.toolbar.logo = None
