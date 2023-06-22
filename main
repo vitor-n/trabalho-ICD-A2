@@ -1,65 +1,29 @@
 from import_data import import_df_for_bokeh
-from df_manipulations import df_variety_method
+from graph_style import apply_default_style
+import df_manipulations
 from bokeh.plotting import figure
 from bokeh.io import output_file, save, show
 from bokeh.models import ColumnDataSource, LabelSet, Range1d, ImageURL, Circle, Title
 from bokeh.palettes import Category20
 import pandas as pd
-from graph_style import apply_default_style
 
 arabica_coffee = import_df_for_bokeh("df_arabica_clean.csv")
 
-#Cleaning names badly written in the "Country of Origin" column
-arabica_coffee["Country of Origin"] = arabica_coffee["Country of Origin"].replace(["Tanzania, United Republic Of"], "Tanzania")
-arabica_coffee["Country of Origin"] = arabica_coffee["Country of Origin"].replace(["United States (Hawaii)"], "Hawaii")
-
 #First graph
 def L_aroma_aftertaste(datapath):
-    def mean_countries_aroma_aftertaste(datapath):
-        """Creates a dicionary of which the keys are different countries and
-        the values are lists of the mean aroma and aftertaste"""
-
-        countries_and_amount_occurences = datapath["Country of Origin"].value_counts().to_frame().reset_index()
-        countries_and_amount_occurences.columns = ["Countries", "Amount of Occurences"]
-        dict_countries_and_amount_occurences = dict(zip(countries_and_amount_occurences["Countries"],
-                                                         countries_and_amount_occurences["Amount of Occurences"]))
-                                                     
-        aroma_aftertaste = {}
-        for index_of_table in range(len(datapath["Country of Origin"])):
-
-            country = datapath["Country of Origin"][index_of_table]
-            aroma = datapath["Aroma"][index_of_table]
-            aftertaste = datapath["Aftertaste"][index_of_table]
-
-            #If the country already exists in aroma_aftertaste, its value will be the current value of aroma and aftertaste.
-            #Otherwise, we add the existing value in aroma_aftertaste with the current values
-            if country not in aroma_aftertaste:
-                aroma_aftertaste[country] = [aroma, aftertaste]
-            else:
-                aroma_aftertaste[country] = [ x + y for x, y in zip(aroma_aftertaste[country], [aroma, aftertaste]) ]
-    
-        #Divide the associated with each country by its amount of occurences, giving us the mean values
-        mean_aroma_aftertaste = aroma_aftertaste
-        for country1 in dict_countries_and_amount_occurences:
-            for country2 in aroma_aftertaste:
-                if country1 == country2:
-                    mean_aroma_aftertaste[country1] = [x / dict_countries_and_amount_occurences[country1] for x in aroma_aftertaste[country1]]
-        
-        return mean_aroma_aftertaste
-
-
-    axis = mean_countries_aroma_aftertaste(datapath)
+    axis = df_manipulations.df_aroma_aftertaste(datapath)
 
     #Creating CDS object
     data = {"x" : [value[0] for value in axis.values()],
             "y" : [value[1] for value in axis.values()],
             "countries" : [key for key in axis.keys()]}
-    data= ColumnDataSource(data=data)
+
+    source= ColumnDataSource(data=data)
    
     #Creating the plot
     p = figure(width = 1000, height = 700)
     
-    glyph = Circle(x="x", y="y", fill_color = "#732C02", line_color = "#732C02", size = 4)
+    glyph = Circle(x="x", y="y", source = source, fill_color = "#732C02", line_color = "#732C02", size = 4)
     p.add_glyph(data, glyph)
 
     #Points' labels
@@ -84,7 +48,7 @@ def L_aroma_aftertaste(datapath):
 
 #Second graph
 def L_variety_method(datapath):
-    df = df_variety_method(datapath=datapath)
+    df = df_manipulations.df_variety_method(datapath=datapath)
     
     #Color palette for the bars
     colors = Category20[len(df["Processing Method"].unique())]
@@ -92,6 +56,8 @@ def L_variety_method(datapath):
     # Group the DataFrame by "Variety" and "Processing Method" and calculate the count
     grouped = df.groupby(["Variety", "Processing Method"]).size().unstack()
     varieties = grouped.index.tolist()
+
+    #Create the plot
     p = figure(x_range=varieties, height=700, width = 1400)
     
     #Stacked bar chart for each processing method
@@ -114,5 +80,30 @@ def L_variety_method(datapath):
 
     return show(p)
 
+#Third graph
+def L_country_kilos(datapath):
+    df = df_manipulations.df_country_kilos(datapath)
+    df = df.sort_values("Kilos of Coffee")
 
-L_variety_method(arabica_coffee)
+    #Create plot
+    p = figure(y_range=df["Countries"], width=1500, height=700, title="Coffee Production by Country")
+    source = ColumnDataSource(df)
+
+    #Add glyph
+    p.hbar(y='Countries', right='Kilos of Coffee', fill_color ="red", line_color = "red", height=0.5, source=source)
+
+    #Add annotations
+    p.text(x='Kilos of Coffee', y='Countries', text='Kilos of Coffee', text_baseline='middle', text_align='left',
+       source=source, text_font_size='9pt', text_font_style = "italic", x_offset=5)
+    
+    #Apply elements of style
+    p = apply_default_style(p)
+    p.yaxis.axis_label = "Countries"
+    p.xaxis.axis_label = "Kilos of Coffee"
+
+    x_range = Range1d(start=0, end= 13000000) 
+    p.xaxis.major_label_text_color = None
+
+    show(p)
+
+    return
