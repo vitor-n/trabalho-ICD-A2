@@ -1,5 +1,6 @@
 import pandas as pd
 from import_data import import_df_for_bokeh
+from bokeh.models import ColumnDataSource
 
 def df_aroma_aftertaste(datapath):
     """
@@ -177,3 +178,23 @@ def df_country_kilos(datapath):
     }
 
     return pd.DataFrame(new_df)
+
+def get_df_acidity_flavor(dataframe):
+    #Groups dataframe by flavor and acidity columns
+    grouped_dataframe = dataframe.groupby(["Acidity", "Flavor"])
+    #Get the count of how many times each pair of flavor and acidity appeared
+    count_dataframe = grouped_dataframe.size().to_frame().reset_index()
+    count_dataframe = count_dataframe.rename(columns = {0: "count"})
+
+    color_scale = ["#000000", "#151515", "#2A2A2A", "#3F3F3F",
+                   "#545454", "#696969", "#7E7E7E", "#939393"]
+
+    #Auxiliary function to help adding the color scheme tothe dataframe
+    def get_color_by_row(row):
+        number = int(row["count"]) - 1
+        return color_scale[number]
+
+    #Create a new column with the color corresponding to the number of times
+    #each pair appeared
+    count_dataframe["Color"] = count_dataframe.apply(get_color_by_row, axis = 1)
+    return ColumnDataSource(count_dataframe)
