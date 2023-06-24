@@ -101,7 +101,6 @@ def L_country_kilos(datapath):
     p.yaxis.axis_label = "Countries"
     p.xaxis.axis_label = "Kilos of Coffee"
 
-    x_range = Range1d(start=0, end= 13000000) 
     p.xaxis.major_label_text_color = None
 
     show(p)
