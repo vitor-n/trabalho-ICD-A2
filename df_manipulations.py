@@ -186,8 +186,8 @@ def get_df_acidity_flavor(dataframe):
     count_dataframe = grouped_dataframe.size().to_frame().reset_index()
     count_dataframe = count_dataframe.rename(columns = {0: "count"})
 
-    color_scale = ["#000000", "#151515", "#2A2A2A", "#3F3F3F",
-                   "#545454", "#696969", "#7E7E7E", "#939393"]
+    color_scale = ["#939393", "#7E7E7E", "#696969", "#545454",
+                   "#3F3F3F", "#2A2A2A", "#151515", "#000000"]
 
     #Auxiliary function to help adding the color scheme tothe dataframe
     def get_color_by_row(row):
