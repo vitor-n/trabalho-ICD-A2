@@ -36,3 +36,25 @@ def apply_default_style(p):
     p.toolbar.autohide = True 
 
     return p
+
+def apply_dotplot_style(p):
+    #Applies default style to get font styles and sizes
+    p = apply_default_style(p)
+
+    #Remove background color
+    p.background_fill_color = "#FFFFFF"
+    p.background_fill_alpha = 1
+
+    #Change number of ticks to match dot positions
+    p.xaxis[0].ticker.num_minor_ticks = 6
+    p.yaxis[0].ticker.num_minor_ticks = 6
+
+    #Customize grids
+    p.grid.grid_line_color = "lightgrey"
+    p.grid.grid_line_alpha = 0.9
+    p.grid.minor_grid_line_color = "lightgrey"
+    #Weakier grids for minor ticks
+    p.grid.minor_grid_line_alpha = 0.5
+    p.grid.minor_grid_line_dash = "dotdash"
+
+    return p
