@@ -141,6 +141,9 @@ def df_country_kilos(datapath):
     #Fixing bad names in "Country of Origin" column
     df_country_total_kilos["Country of Origin"] = df_country_total_kilos["Country of Origin"].replace(["Tanzania, United Republic Of"], "Tanzania")
     df_country_total_kilos["Country of Origin"] = df_country_total_kilos["Country of Origin"].replace(["United States (Hawaii)"], "Hawaii")
+
+    #Deleting suspiciously high values
+    df_country_total_kilos = df_country_total_kilos.drop(labels=[35, 116], axis=0)
     
     #Deleting missing values
     df_country_total_kilos = df_country_total_kilos.dropna(subset="Number of Bags")
