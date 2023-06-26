@@ -42,8 +42,8 @@ def apply_dotplot_style(p):
     p = apply_default_style(p)
 
     #Remove background color
-    p.background_fill_color = "#FFFFFF"
-    p.background_fill_alpha = 1
+    #p.background_fill_color = "#FFFFFF"
+    #p.background_fill_alpha = 1
 
     #Customize grids
     p.grid.grid_line_color = "lightgrey"

@@ -185,14 +185,17 @@ def df_country_kilos(datapath):
 def get_df_acidity_flavor(dataframe):
     #Groups dataframe by flavor and acidity columns
     grouped_dataframe = dataframe.groupby(["Acidity", "Flavor"])
+
     #Get the count of how many times each pair of flavor and acidity appeared
+    #(scores are binned, so points overlap if this isn't done)
     count_dataframe = grouped_dataframe.size().to_frame().reset_index()
     count_dataframe = count_dataframe.rename(columns = {0: "count"})
 
+    #Color schale to the points
     color_scale = ["#939393", "#7E7E7E", "#696969", "#545454",
                    "#3F3F3F", "#2A2A2A", "#151515", "#000000"]
 
-    #Auxiliary function to help adding the color scheme tothe dataframe
+    #Auxiliary function to help adding the color scheme to the dataframe
     def get_color_by_row(row):
         number = int(row["count"]) - 1
         return color_scale[number]
@@ -200,4 +203,8 @@ def get_df_acidity_flavor(dataframe):
     #Create a new column with the color corresponding to the number of times
     #each pair appeared
     count_dataframe["Color"] = count_dataframe.apply(get_color_by_row, axis = 1)
+
+    #Create collumn with size (using count directily would make the dots very small)
+    count_dataframe["Size"] = count_dataframe["count"] + 3
+
     return ColumnDataSource(count_dataframe)
