@@ -22,6 +22,6 @@ def P_acidity_flavor(datapath):
     plot = apply_dotplot_style(plot)
     show(plot)
 
-    #TODO: improve code organization, add label names, add title, maybe change the scale limits
+    #TODO: maybe change the scale limits and size of circles
 
 P_acidity_flavor(import_df_for_bokeh("df_arabica_clean.csv"))

@@ -1,6 +1,7 @@
 import pandas as pd
 from import_data import import_df_for_bokeh
-from bokeh.models import ColumnDataSource
+from bokeh.models import ColumnDataSource, GeoJSONDataSource
+import json
 
 def df_aroma_aftertaste(datapath):
     """
@@ -208,3 +209,26 @@ def get_df_acidity_flavor(dataframe):
     count_dataframe["Size"] = count_dataframe["count"] + 3
 
     return ColumnDataSource(count_dataframe)
+
+def get_geojson_with_coffee_data(dataframe):
+    #Group the dataframe by country
+    grouped_dataframe = dataframe.groupby("Country of Origin")
+    #Get a dictionary containing the mean of overall score for each country
+    means = grouped_dataframe["Overall"].mean().to_dict()
+
+    #Opens the GEOjson file containing the world map
+    with open("countries.geojson", "r") as f:
+        world_map = json.load(f)
+
+    #Iter through each contry in the map dicitionary
+    for country in world_map["features"]:
+        #Add the value of the country overall score in the country info in GeoJSON
+        #If it doesn't have a value, it gets a 0
+        country_name = country["properties"]["ADMIN"]
+        if country_name in means.keys():
+            country["properties"]["Overall_mean"] = means[country_name]
+        else:
+            country["properties"]["Overall_mean"] = 0
+
+    bokeh_map_data_source = GeoJSONDataSource(geojson = json.dumps(world_map))
+    return bokeh_map_data_source
