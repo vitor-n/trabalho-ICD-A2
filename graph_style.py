@@ -54,3 +54,19 @@ def apply_dotplot_style(p):
     p.grid.minor_grid_line_dash = "dotdash"
 
     return p
+
+def apply_map_style(p):
+    p = apply_default_style(p)
+
+    p.background_fill_color = "lightblue"
+    p.background_fill_alpha = 1
+
+    p.grid.grid_line_color = "white"
+    p.grid.grid_line_alpha = 0.5
+
+    p.xaxis[0].ticker.num_minor_ticks = 0
+    p.yaxis[0].ticker.num_minor_ticks = 0
+
+    p.axis.major_label_text_font_size = "0px"
+
+    return p
