@@ -96,11 +96,16 @@ def P_boxplot_altitude_by_country(datapath):
     plot.circle("Country of Origin", "Altitude", source = outliers,
                 size = 6, color =  "#732C02")
 
+    #Set title and axis labels
+    plot.xaxis.axis_label = "Country of Origin"
+    plot.yaxis.axis_label = "Altitude"
+    plot.title.text = "Distribution of altitudes of coffee production by country"
+
     #Apply default style
     plot = apply_default_style(plot)
+    plot.xaxis.major_label_orientation = 45
 
     show(plot)
-    #TODO: Add titles and such things, remove countries that doesn't render boxes
 
 P_boxplot_altitude_by_country(arabica_coffee_data)
 
