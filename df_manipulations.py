@@ -244,7 +244,7 @@ def get_correlation_matrix(dataframe):
         pandas.DataFrame: The correlation matrix with sensory variables as row and column indices,
                           and correlation values as the 'correlation' column.
     """
-    
+
     # Specify the columns to consider for correlation
     columns = ["Aroma", "Flavor", "Aftertaste", "Acidity", "Body", "Balance", "Clean Cup", "Sweetness", "Overall"]
 
@@ -262,3 +262,30 @@ def get_correlation_matrix(dataframe):
     correlation_matrix = df.stack().rename("correlation").reset_index()
 
     return correlation_matrix
+
+def get_df_mean_altitude(dataframe):
+    
+    df = dataframe.reset_index().dropna()
+
+    mean_altitudes = []
+    
+    for index, row in df.iterrows():
+        altitude = str(row["Altitude"])
+        
+        if '-' in altitude:
+            min_altitude, max_altitude = altitude.split('-')
+            mean_altitude = (int(min_altitude) + int(max_altitude)) / 2
+        elif "A" in altitude:
+            min_altitude, max_altitude = altitude.split('A')
+            mean_altitude = (int(min_altitude) + int(max_altitude)) / 2
+        elif "~" in altitude:
+            min_altitude, max_altitude = altitude.split('~')
+            mean_altitude = (int(min_altitude) + int(max_altitude)) / 2
+        else:
+            mean_altitude = int(altitude)
+            
+        mean_altitudes.append(mean_altitude)
+    
+    df['Mean Altitude'] = mean_altitudes
+
+    return df
