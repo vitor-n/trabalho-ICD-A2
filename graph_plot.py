@@ -1,11 +1,14 @@
+import df_manipulations
 from import_data import import_df_for_bokeh
 from graph_style import apply_default_style, apply_dotplot_style, apply_map_style
+from bokeh.models import BasicTicker, ColorBar, LinearColorMapper, ColumnDataSource
 from bokeh.models import Range1d, ColorBar
 from bokeh.plotting import figure
 from bokeh.palettes import Viridis256
-from bokeh.transform import linear_cmap
+from bokeh.transform import transform, linear_cmap
 from bokeh.io import show
-import df_manipulations
+
+arabica_coffee_data = import_df_for_bokeh("df_arabica_clean.csv")
 
 def P_acidity_flavor(datapath):
     #Get the necessary data
@@ -61,4 +64,48 @@ def P_map_mean_overall(datapath):
     plot = apply_map_style(plot)
     show(plot)
 
-P_map_mean_overall(import_df_for_bokeh("df_arabica_clean.csv"))
+#P_map_mean_overall(import_df_for_bokeh("df_arabica_clean.csv"))
+
+def V_sensorial_attr_correlation(datapath):
+
+    # Get the correlation matrix using the provided data
+    df = df_manipulations.get_correlation_matrix(datapath)
+
+    # Define colors for the heatmap
+    colors = list(Viridis256)
+
+    # Create a color mapper based on the min and max correlation values
+    color_mapper = LinearColorMapper(palette=colors, low=df.correlation.min(), high=df.correlation.max())
+
+    # Create a Bokeh figure for the heatmap
+    p = figure(
+        width=800,
+        height=800,
+        title="Correlation between sensorial attributes",
+        x_range=list(df.sensory_variables1.drop_duplicates()),
+        y_range=list(reversed(df.sensory_variables2.drop_duplicates())),
+        toolbar_location=None,
+        tools="",
+        x_axis_location="above")
+
+    # Add rectangles representing the correlation values to the figure
+    p.rect(
+        x="sensory_variables1",
+        y="sensory_variables2",
+        width=1,
+        height=1,
+        source=ColumnDataSource(df),
+        line_color=None,
+        color=transform('correlation', color_mapper))
+
+    # Create a color bar to represent the correlation values
+    color_bar = ColorBar(
+        color_mapper=color_mapper,
+        location=(0, 0),
+        ticker=BasicTicker(desired_num_ticks=20))
+
+    # Add the color bar to the figure
+    p.add_layout(color_bar, "right")
+
+    # Display the heatmap
+    show(p)

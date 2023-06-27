@@ -232,3 +232,33 @@ def get_geojson_with_coffee_data(dataframe):
 
     bokeh_map_data_source = GeoJSONDataSource(geojson = json.dumps(world_map))
     return bokeh_map_data_source
+
+def get_correlation_matrix(dataframe):
+    """
+    Calculates the correlation matrix for the sensory attributes of the dataset.
+
+    Args:
+        dataframe (pandas.DataFrame): The input DataFrame containing the Arabica Coffee data.
+
+    Returns:
+        pandas.DataFrame: The correlation matrix with sensory variables as row and column indices,
+                          and correlation values as the 'correlation' column.
+    """
+    
+    # Specify the columns to consider for correlation
+    columns = ["Aroma", "Flavor", "Aftertaste", "Acidity", "Body", "Balance", "Clean Cup", "Sweetness", "Overall"]
+
+    # Select the columns from the dataframe
+    df = dataframe[columns]
+
+    # Compute the correlation matrix
+    df = df.corr()
+
+    # Set index and column names for the correlation matrix
+    df.index.name = 'sensory_variables1'
+    df.columns.name = 'sensory_variables2'
+
+    # Reshape the correlation matrix to a long format
+    correlation_matrix = df.stack().rename("correlation").reset_index()
+
+    return correlation_matrix
