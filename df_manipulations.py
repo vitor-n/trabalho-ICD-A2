@@ -231,6 +231,37 @@ def get_geojson_with_coffee_data(dataframe):
     bokeh_map_data_source = GeoJSONDataSource(geojson = json.dumps(world_map))
     return bokeh_map_data_source
 
+def get_cds_altitude_country(dataframe):
+    #Gets dataframe with clean altitude data
+    df = get_df_mean_altitude(dataframe[["Altitude", "Country of Origin"]])
+
+    #Removes altitudes bigger than 4200 (they only appear in countries that
+    #doesn't have lands so high, so its fair to assume they're wrong)
+    df = df[df["Mean Altitude"] < 4200]
+    #Group the dataframe by country
+    grouped_dataframe = df.groupby("Country of Origin")
+    #Gets a list of quantiles for altituteds, respecting country grouping
+    quantiles = grouped_dataframe["Mean Altitude"].quantile([0.25, 0.5, 0.75])
+    quantiles = quantiles.unstack().reset_index()
+    quantiles.columns = ["Country of Origin", "q1", "q2", "q3"]
+
+    #Adds basic quantil data to each row in original dataframe
+    df = pd.merge(df, quantiles, on = "Country of Origin", how = "left")
+
+    #Creates two columns with the whisker limits data
+    quantil_distance = df["q3"] - df["q1"]
+    df["upper"] = df["q3"] + (1.5 * quantil_distance)
+    df["lower"] = df["q1"] - (1.5 * quantil_distance)
+
+    cds = ColumnDataSource(df)
+    country_list = df["Country of Origin"].unique()
+
+    #Filter dataframe to get only rows where the value of altitude isn't between
+    #whisker limits, in order to plot them
+    outliers = df[~df["Altitude"].between(df["lower"], df["upper"])]
+    cds_outliers = ColumnDataSource(outliers)
+    return cds,  country_list, cds_outliers
+
 def get_correlation_matrix(dataframe):
     """
     Calculates the correlation matrix for the sensory attributes of the dataset.
