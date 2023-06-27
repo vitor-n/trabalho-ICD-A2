@@ -2,7 +2,7 @@ from import_data import import_df_for_bokeh
 from graph_style import apply_default_style, apply_dotplot_style, apply_map_style
 from bokeh.models import Range1d, ColorBar
 from bokeh.plotting import figure
-from bokeh.palettes import Greys256
+from bokeh.palettes import Viridis256
 from bokeh.transform import linear_cmap
 from bokeh.io import show
 import df_manipulations
@@ -33,7 +33,9 @@ def P_map_mean_overall(datapath):
     world_map = df_manipulations.get_geojson_with_coffee_data(datapath)
 
     #Create a color mapping to the countries in map based on overall atribute
-    color_scheme = linear_cmap("Overall_mean", Greys256[::-1], 6.9, 8.1)
+    cores = list(Viridis256)
+    cores.append("#FFFFFF") #To make all the countries without production white
+    color_scheme = linear_cmap("Overall_mean", tuple(cores[::-1]), 7, 8)
 
     #Creates a list of tuples that tells the plot the tooltips to be displayed
     tooltips = [("Country", "@ADMIN"),
@@ -46,11 +48,9 @@ def P_map_mean_overall(datapath):
     plot.patches('xs', 'ys', source = world_map, line_color='black',
                  line_width=0.25, fill_alpha=1, fill_color = color_scheme)
 
-    #Create color legend, stylize it and add to the plot
+    #Create color legend and add to the plot
     color_legend = ColorBar(color_mapper = color_scheme["transform"],
-                            width = 50, height = 690)
-    color_legend.background_fill_color = "#EEEEEE"
-    color_legend.background_fill_alpha = 1
+                            width = 50, height = 680)
     plot.add_layout(color_legend, "right")
 
     #Set axis limits to fit world map
