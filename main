@@ -1,0 +1,108 @@
+from import_data import import_df_for_bokeh
+from graph_style import apply_default_style
+import df_manipulations
+from bokeh.plotting import figure
+from bokeh.io import output_file, save, show
+from bokeh.models import ColumnDataSource, LabelSet, Range1d, ImageURL, Circle, Title
+from bokeh.palettes import Category20
+import pandas as pd
+
+arabica_coffee = import_df_for_bokeh("df_arabica_clean.csv")
+
+#First graph
+def L_aroma_aftertaste(datapath):
+    axis = df_manipulations.df_aroma_aftertaste(datapath)
+
+    #Creating CDS object
+    data = {"x" : [value[0] for value in axis.values()],
+            "y" : [value[1] for value in axis.values()],
+            "countries" : [key for key in axis.keys()]}
+
+    source= ColumnDataSource(data=data)
+   
+    #Creating the plot
+    p = figure(width = 1000, height = 700)
+    
+    p.circle(x="x", y="y", source = source, fill_color = "#732C02", line_color = "#732C02", size = 4)
+    
+
+    #Points' labels
+    labels = LabelSet(x="x", y = "y", text="countries",
+                       text_font_size = "8pt", text_font = "Modern Love", text_font_style = "bold",
+                         x_offset = 2, y_offset=0, source=source)
+    
+    #Axis
+    p.x_range = Range1d(7.2, 8.2)
+    p.y_range = Range1d(7.2, 8)
+
+    
+    p.xaxis.axis_label = "Mean aroma"
+    p.yaxis.axis_label = "Mean aftertaste"
+    p.title.text = "Mean aroma and aftertaste by country"
+
+    p.add_layout(labels)
+
+    p = apply_default_style(p)
+
+    return show(p)
+
+#Second graph
+def L_variety_method(datapath):
+    df = df_manipulations.df_variety_method(datapath=datapath)
+    
+    #Color palette for the bars
+    colors = Category20[len(df["Processing Method"].unique())]
+    
+    # Group the DataFrame by "Variety" and "Processing Method" and calculate the count
+    grouped = df.groupby(["Variety", "Processing Method"]).size().unstack()
+    varieties = grouped.index.tolist()
+
+    #Create the plot
+    p = figure(x_range=varieties, height=700, width = 1400)
+    
+    #Stacked bar chart for each processing method
+    for index, method in enumerate(grouped.columns):
+        p.vbar(x=varieties, top=grouped[method], width=0.8, color=colors[index],
+            legend_label=method)
+    
+    #Legends
+    p.legend.location = "center"
+    p.add_layout(p.legend[0], 'right')
+
+    #Axis label and title
+    p.xaxis.axis_label = "Coffee varieties"
+    p.yaxis.axis_label = "Number of lots"
+    p.title.text = "Processing methods by coffee variety"
+
+    p.xaxis.major_label_orientation = "vertical"
+
+    p = apply_default_style(p)
+
+    return show(p)
+
+#Third graph
+def L_country_kilos(datapath):
+    df = df_manipulations.df_country_kilos(datapath)
+    df = df.sort_values("Kilos of Coffee")
+
+    #Create plot
+    p = figure(y_range=df["Countries"], width=1500, height=700, title="Coffee Production by Country")
+    source = ColumnDataSource(df)
+
+    #Add glyph
+    p.hbar(y='Countries', right='Kilos of Coffee', fill_color ="red", line_color = "red", height=0.5, source=source)
+
+    #Add annotations
+    p.text(x='Kilos of Coffee', y='Countries', text='Kilos of Coffee', text_baseline='middle', text_align='left',
+       source=source, text_font_size='9pt', text_font_style = "italic", x_offset=5)
+    
+    #Apply elements of style
+    p = apply_default_style(p)
+    p.yaxis.axis_label = "Countries"
+    p.xaxis.axis_label = "Kilos of Coffee"
+
+    p.xaxis.major_label_text_color = None
+
+    show(p)
+
+    return
