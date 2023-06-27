@@ -1,11 +1,11 @@
 import df_manipulations
 from import_data import import_df_for_bokeh
 from graph_style import apply_default_style, apply_dotplot_style, apply_map_style
-from bokeh.models import BasicTicker, ColorBar, LinearColorMapper, ColumnDataSource
+from bokeh.models import BasicTicker, ColorBar, LinearColorMapper, ColumnDataSource, Whisker
 from bokeh.models import Range1d, ColorBar
 from bokeh.plotting import figure
-from bokeh.palettes import Viridis256
-from bokeh.transform import transform, linear_cmap
+from bokeh.palettes import Viridis256, Category20b
+from bokeh.transform import transform, linear_cmap, factor_cmap
 from bokeh.io import show
 
 arabica_coffee_data = import_df_for_bokeh("df_arabica_clean.csv")
@@ -67,21 +67,40 @@ def P_map_mean_overall(datapath):
 #P_map_mean_overall(import_df_for_bokeh("df_arabica_clean.csv"))
 
 def P_boxplot_altitude_by_country(datapath):
-    from bokeh.models import ColumnDataSource, Whisker
+    #Get all the necessary data
     source, country_list, outliers = df_manipulations.get_cds_altitude_country(datapath)
-    plot = figure(x_range = country_list, toolbar_location = None, tools = "", width = 1500)
-    braços = Whisker(base = "Country of Origin", upper = "upper", lower = "lower", source = source)
-    plot.add_layout(braços)
 
-    from bokeh.transform import factor_cmap
-    from bokeh.palettes import Category20b
-    cormapa = factor_cmap("Country of Origin", Category20b[20], country_list)
-    plot.vbar("Country of Origin", 0.7, "q2", "q3", source = source, color = cormapa, line_color = "black")
-    plot.vbar("Country of Origin", 0.7, "q1", "q2", source = source, color = cormapa, line_color = "black")
+    #Create the plot (x_range says wich categories X axis have)
+    #The tools were removed because they don't make sense in the boxplot
+    plot = figure(x_range = country_list, toolbar_location = None,
+                  tools = "", width = 1280, height = 720)
 
+    #To do a boxplot in bokeh, it's necessay to plot three elements individualy:
+    #The whiskers, the boxes (plotted as bars) and the outliers
+
+    #Adding the whiskers
+    whiskers = Whisker(base = "Country of Origin", upper = "upper",
+                       lower = "lower", source = source)
+    plot.add_layout(whiskers)
+
+    #Adding the boxes
+    #Creates a color map to color each box with a color
+    color_map = factor_cmap("Country of Origin", Category20b[20], country_list)
+    #Plotting the boxes
+    plot.vbar("Country of Origin", 0.75, "q2", "q3", source = source,
+              color = color_map, line_color = "black")
+    plot.vbar("Country of Origin", 0.75, "q1", "q2", source = source,
+              color = color_map, line_color = "black")
+
+    #Plotting the outliers as dots
+    plot.circle("Country of Origin", "Altitude", source = outliers,
+                size = 6, color =  "#732C02")
+
+    #Apply default style
     plot = apply_default_style(plot)
 
     show(plot)
+    #TODO: Add titles and such things, remove countries that doesn't render boxes
 
 P_boxplot_altitude_by_country(arabica_coffee_data)
 
