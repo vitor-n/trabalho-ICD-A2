@@ -173,8 +173,6 @@ def df_country_kilos(datapath):
             for subindex in range(len(countries)):
                 if countries[subindex] == list_of_all_countries[index]:
                     kilos_per_country[subindex] += list_of_kilos[index]
-    
-    print(kilos_per_country)
 
     new_df = {
         "Countries" : countries,
