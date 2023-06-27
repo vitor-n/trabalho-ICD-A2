@@ -1,7 +1,7 @@
 import df_manipulations
 from import_data import import_df_for_bokeh
 from graph_style import apply_default_style, apply_dotplot_style, apply_map_style
-from bokeh.models import BasicTicker, ColorBar, LinearColorMapper, ColumnDataSource, Whisker
+from bokeh.models import BasicTicker, ColorBar, LinearColorMapper, ColumnDataSource, Whisker, HoverTool
 from bokeh.models import Range1d, ColorBar
 from bokeh.plotting import figure
 from bokeh.palettes import Viridis256, Category20b
@@ -107,7 +107,7 @@ def P_boxplot_altitude_by_country(datapath):
 
     show(plot)
 
-P_boxplot_altitude_by_country(arabica_coffee_data)
+#P_boxplot_altitude_by_country(arabica_coffee_data)
 
 def V_sensorial_attr_correlation(datapath):
 
@@ -118,7 +118,8 @@ def V_sensorial_attr_correlation(datapath):
     colors = list(Viridis256)
 
     # Create a color mapper based on the min and max correlation values
-    color_mapper = LinearColorMapper(palette=colors, low=df.correlation.min(), high=df.correlation.max())
+    color_mapper = LinearColorMapper(
+        palette=colors, low=df.correlation.min(), high=df.correlation.max())
 
     # Create a Bokeh figure for the heatmap
     p = figure(
@@ -150,5 +151,17 @@ def V_sensorial_attr_correlation(datapath):
     # Add the color bar to the figure
     p.add_layout(color_bar, "right")
 
+    # Add hover tool to display correlation value
+    hover = HoverTool(
+        tooltips=[
+            ('Correlation', '@correlation'),
+            ('Attribute 1', "@sensory_variables1"),
+            ("Attribute 2", "@sensory_variables2")])
+
+    p.add_tools(hover)
+
     # Display the heatmap
     show(p)
+    
+
+V_sensorial_attr_correlation(arabica_coffee_data    )
