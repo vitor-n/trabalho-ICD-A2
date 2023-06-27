@@ -238,6 +238,10 @@ def get_cds_altitude_country(dataframe):
     #Removes altitudes bigger than 4200 (they only appear in countries that
     #doesn't have lands so high, so its fair to assume they're wrong)
     df = df[df["Mean Altitude"] < 4200]
+    #Removes countries with insuficcient data to plot a boxplot
+    df = df[df["Country of Origin"] != "Myanmar"]
+    df = df[df["Country of Origin"] != "Panama"]
+    df = df[df["Country of Origin"] != "Madagascar"]
     #Group the dataframe by country
     grouped_dataframe = df.groupby("Country of Origin")
     #Gets a list of quantiles for altituteds, respecting country grouping
