@@ -258,7 +258,7 @@ def get_cds_altitude_country(dataframe):
 
     #Filter dataframe to get only rows where the value of altitude isn't between
     #whisker limits, in order to plot them
-    outliers = df[~df["Altitude"].between(df["lower"], df["upper"])]
+    outliers = df[~df["Mean Altitude"].between(df["lower"], df["upper"])]
     cds_outliers = ColumnDataSource(outliers)
     return cds,  country_list, cds_outliers
 

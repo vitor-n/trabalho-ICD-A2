@@ -66,6 +66,25 @@ def P_map_mean_overall(datapath):
 
 #P_map_mean_overall(import_df_for_bokeh("df_arabica_clean.csv"))
 
+def P_boxplot_altitude_by_country(datapath):
+    from bokeh.models import ColumnDataSource, Whisker
+    source, country_list, outliers = df_manipulations.get_cds_altitude_country(datapath)
+    plot = figure(x_range = country_list, toolbar_location = None, tools = "", width = 1500)
+    braços = Whisker(base = "Country of Origin", upper = "upper", lower = "lower", source = source)
+    plot.add_layout(braços)
+
+    from bokeh.transform import factor_cmap
+    from bokeh.palettes import Category20b
+    cormapa = factor_cmap("Country of Origin", Category20b[20], country_list)
+    plot.vbar("Country of Origin", 0.7, "q2", "q3", source = source, color = cormapa, line_color = "black")
+    plot.vbar("Country of Origin", 0.7, "q1", "q2", source = source, color = cormapa, line_color = "black")
+
+    plot = apply_default_style(plot)
+
+    show(plot)
+
+P_boxplot_altitude_by_country(arabica_coffee_data)
+
 def V_sensorial_attr_correlation(datapath):
 
     # Get the correlation matrix using the provided data
