@@ -280,7 +280,7 @@ def get_correlation_matrix(dataframe):
     """
 
     # Specify the columns to consider for correlation
-    columns = ["Aroma", "Flavor", "Aftertaste", "Acidity", "Body", "Balance", "Clean Cup", "Sweetness", "Overall"]
+    columns = ["Aroma", "Flavor", "Aftertaste", "Acidity", "Body", "Balance", "Clean Cup", "Sweetness", "Overall", "Total Cup Points"]
 
     # Select the columns from the dataframe
     df = dataframe[columns]
