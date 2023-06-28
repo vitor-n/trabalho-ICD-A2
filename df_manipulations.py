@@ -215,6 +215,7 @@ def get_geojson_with_coffee_data(dataframe):
     means = grouped_dataframe["Overall"].mean().to_dict()
 
     #Opens the GEOjson file containing the world map
+    #File downloaded at https://datahub.io/core/geo-countries
     with open("countries.geojson", "r") as f:
         world_map = json.load(f)
 
