@@ -2,15 +2,117 @@ import df_manipulations
 from import_data import import_df_for_bokeh
 from graph_style import apply_default_style, apply_dotplot_style, apply_map_style
 
-from bokeh.models import BasicTicker, ColorBar, LinearColorMapper, ColumnDataSource, Whisker, HoverTool, Range1d, ColorBar
+from bokeh.models import BasicTicker, ColorBar, LinearColorMapper, ColumnDataSource, Whisker, HoverTool, Range1d, ColorBar, LabelSet
 from bokeh.plotting import figure
-from bokeh.palettes import Viridis256, Category20b
+from bokeh.palettes import Viridis256, Category20b, Category20
 from bokeh.transform import transform, linear_cmap, factor_cmap, jitter, dodge
 from bokeh.io import show
 
 arabica_coffee_data = import_df_for_bokeh("df_arabica_clean.csv")
 
+# 1 graph
+def L_aroma_aftertaste(datapath):
+    axis = df_manipulations.df_aroma_aftertaste(datapath)
 
+    # Creating CDS object
+    data = {"x": [value[0] for value in axis.values()],
+            "y": [value[1] for value in axis.values()],
+            "countries": [key for key in axis.keys()]}
+
+    source = ColumnDataSource(data=data)
+
+    # Creating the plot
+    p = figure(width=1000, height=700)
+
+    p.circle(x="x", y="y", source=source, fill_color="#732C02",
+             line_color="#732C02", size=4)
+
+    # Points' labels
+    labels = LabelSet(x="x", y="y", text="countries",
+                      text_font_size="8pt", text_font="Modern Love", text_font_style="bold",
+                      x_offset=2, y_offset=0, source=source)
+
+    # Axis
+    p.x_range = Range1d(7.2, 8.2)
+    p.y_range = Range1d(7.2, 8)
+
+    p.xaxis.axis_label = "Mean aroma"
+    p.yaxis.axis_label = "Mean aftertaste"
+    p.title.text = "Mean aroma and aftertaste by country"
+
+    p.add_layout(labels)
+
+    p = apply_default_style(p)
+
+    return show(p)
+
+# 2 graph
+def L_variety_method(datapath):
+    df = df_manipulations.df_variety_method(datapath=datapath)
+
+    # Group the DataFrame by "Variety" and "Processing Method" and calculate the count
+    grouped = df.groupby(["Variety", "Processing Method"]).size().unstack()
+    varieties = grouped.index.tolist()
+
+    # Creating CDS object
+    source = ColumnDataSource(grouped)
+
+    # Color palette for the bars
+    colors = Category20[len(grouped.columns)]
+
+    # Create the plot
+    p = figure(x_range=varieties, height=700, width=1400)
+
+    # Stacked bar chart for each processing method
+    for index, method in enumerate(grouped.columns):
+        p.vbar(x=varieties, top=grouped[method], width=0.8, color=colors[index],
+               legend_label=method)
+
+    # Legends
+    p.legend.location = "center"
+    p.add_layout(p.legend[0], 'right')
+
+    # Axis label and title
+    p.xaxis.axis_label = "Coffee varieties"
+    p.yaxis.axis_label = "Number of lots"
+    p.title.text = "Processing methods by coffee variety"
+
+    p.xaxis.major_label_orientation = "vertical"
+
+    p = apply_default_style(p)
+
+    return show(p)
+
+# 3 graph
+def L_country_kilos(datapath):
+    df = df_manipulations.df_country_kilos(datapath)
+    df = df.sort_values("Kilos of Coffee")
+
+    # Create plot
+    p = figure(y_range=df["Countries"], width=1500,
+               height=700, title="Coffee Production by Country")
+    source = ColumnDataSource(df)
+
+    # Add glyph
+    p.hbar(y='Countries', right='Kilos of Coffee', fill_color="red",
+           line_color="red", height=0.5, source=source)
+
+    # Add annotations
+    p.text(x='Kilos of Coffee', y='Countries', text='Kilos of Coffee', text_baseline='middle', text_align='left',
+           source=source, text_font_size='9pt', text_font_style="italic", x_offset=5)
+
+    # Apply elements of style
+    p = apply_default_style(p)
+    p.yaxis.axis_label = "Countries"
+    p.xaxis.axis_label = "Kilos of Coffee"
+
+    p.xaxis.major_label_text_color = None
+
+    show(p)
+
+    return
+
+# 4 graph
 def P_acidity_flavor(datapath):
     # Get the necessary data
     cds = df_manipulations.get_df_acidity_flavor(datapath)
@@ -37,9 +139,7 @@ def P_acidity_flavor(datapath):
 
     # TODO: maybe change the scale limits and size of circles
 
-# P_acidity_flavor(import_df_for_bokeh("df_arabica_clean.csv"))
-
-
+# 5 graph
 def P_map_mean_overall(datapath):
     # Get the map data
     world_map = df_manipulations.get_geojson_with_coffee_data(datapath)
@@ -74,9 +174,7 @@ def P_map_mean_overall(datapath):
     plot = apply_map_style(plot)
     show(plot)
 
-# P_map_mean_overall(import_df_for_bokeh("df_arabica_clean.csv"))
-
-
+# 6 graph
 def P_boxplot_altitude_by_country(datapath):
     # Get all the necessary data
     source, country_list, outliers = df_manipulations.get_cds_altitude_country(
@@ -119,9 +217,7 @@ def P_boxplot_altitude_by_country(datapath):
 
     show(plot)
 
-# P_boxplot_altitude_by_country(arabica_coffee_data)
-
-
+# 7 graph
 def V_sensorial_attr_correlation(datapath):
 
     # Get the correlation matrix using the provided data
@@ -176,7 +272,7 @@ def V_sensorial_attr_correlation(datapath):
     # Display the heatmap
     show(p)
 
-
+# 8 graph
 def V_altitude_flavor(datapath):
 
     data = df_manipulations.get_df_mean_altitude(
@@ -204,7 +300,7 @@ def V_altitude_flavor(datapath):
 
     show(p)
 
-
+# 9 graph
 def V_taste_means_by_color(datapath):
     # Get the data with means by color using df_manipulations.get_means_by_color function
     df = df_manipulations.get_means_by_color(datapath)
