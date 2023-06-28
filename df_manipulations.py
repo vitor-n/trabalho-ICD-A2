@@ -185,6 +185,14 @@ def df_country_kilos(datapath):
     return pd.DataFrame(new_df)
 
 def get_df_acidity_flavor(dataframe):
+    """
+    Creates the ColumnDataSource used in the acidity x flavor scatterplot.
+    The ColumnDataSource will already have the necessary count operations applied.
+
+    Returns:
+        bokeh.models.ColumnDataSource: datasource with desired data
+    """
+
     #Groups dataframe by flavor and acidity columns
     grouped_dataframe = dataframe.groupby(["Acidity", "Flavor"])
 
@@ -199,6 +207,15 @@ def get_df_acidity_flavor(dataframe):
     return ColumnDataSource(count_dataframe)
 
 def get_geojson_with_coffee_data(dataframe):
+    """
+    Creates the GeoJSONDataSource used in the overall mean map. The GeoJSON
+    have border informations for all countries, and this function adds data
+    about the overall score value in order bokeh can plot them.
+
+    Returns:
+        bokeh.models.GeoJSONDataSource: a geojson datasource with the map data
+    """
+
     #Group the dataframe by country
     grouped_dataframe = dataframe.groupby("Country of Origin")
     #Get a dictionary containing the mean of overall score for each country
@@ -223,6 +240,14 @@ def get_geojson_with_coffee_data(dataframe):
     return bokeh_map_data_source
 
 def get_cds_altitude_country(dataframe):
+    """
+    Creates the ColumnDataSource needed to plot the boxplots with altitude data.
+    The necessary quantile operations and outliers filtering are done here.
+
+    Returns:
+        bokeh.models.ColumnDataSource: datasource with desired data
+    """
+
     #Gets dataframe with clean altitude data
     df = get_df_mean_altitude(dataframe[["Altitude", "Country of Origin"]])
 
