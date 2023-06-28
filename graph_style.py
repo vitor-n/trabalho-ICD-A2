@@ -37,28 +37,6 @@ def apply_default_style(p):
 
     return p
 
-def apply_dotplot_style(p):
-    """
-
-    Receives a Bokeh figure() object and applies style elements meant for dotplots
-
-        Parameter: Bokeh figure() object
-
-        Return: figure() object with style applied
-    """
-
-    #Applies default style to get font styles and sizes
-    p = apply_default_style(p)
-
-    #Customize grids
-    p.grid.grid_line_color = "lightgrey"
-    p.grid.grid_line_alpha = 0.9
-    p.grid.minor_grid_line_color = "lightgrey"
-    p.grid.minor_grid_line_alpha = 0.5 #Weakier grids for minor ticks
-    p.grid.minor_grid_line_dash = "dotdash"
-
-    return p
-
 def apply_map_style(p):
     """
 
