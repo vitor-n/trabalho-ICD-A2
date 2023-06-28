@@ -2,11 +2,10 @@ import df_manipulations
 from import_data import import_df_for_bokeh
 from graph_style import apply_default_style, apply_map_style
 
-from bokeh.models import BasicTicker, ColorBar, LinearColorMapper, ColumnDataSource, Whisker, HoverTool, Range1d, ColorBar, LabelSet
+from bokeh.models import BasicTicker, ColorBar, LinearColorMapper, ColumnDataSource, Whisker, HoverTool, Range1d, LabelSet
 from bokeh.plotting import figure
 from bokeh.palettes import Viridis256, Category20b, Category20
-from bokeh.transform import transform, linear_cmap, factor_cmap, jitter, dodge
-from bokeh.io import show
+from bokeh.transform import transform, linear_cmap, factor_cmap, dodge
 
 arabica_coffee_data = import_df_for_bokeh("df_arabica_clean.csv")
 
