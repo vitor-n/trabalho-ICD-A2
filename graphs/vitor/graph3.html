@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Bokeh Plot</title>
+    <style>
+      html, body {
+        box-sizing: border-box;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+    <script type="text/javascript" src="https://cdn.bokeh.org/bokeh/release/bokeh-3.1.1.min.js"></script>
+    <script type="text/javascript">
+        Bokeh.set_log_level("info");
+    </script>
+  </head>
+  <body>
+    <div id="bf1946c1-ad8a-4eae-8326-c71f96a3858c" data-root-id="p2437" style="display: contents;"></div>
+  
+    <script type="application/json" id="p2600">
+      {"3f73b8d0-141d-4493-a3f7-b9125a056d56":{"version":"3.1.1","title":"Bokeh Application","defs":[],"roots":[{"type":"object","name":"Figure","id":"p2437","attributes":{"height":300,"x_range":{"type":"object","name":"FactorRange","id":"p2447","attributes":{"factors":["bluish-green","browish-green","brownish","greenish","pale yellow","yellow-green","yellowish"],"range_padding":0.1}},"y_range":{"type":"object","name":"Range1d","id":"p2449","attributes":{"start":7,"end":9}},"x_scale":{"type":"object","name":"CategoricalScale","id":"p2451"},"y_scale":{"type":"object","name":"LinearScale","id":"p2453"},"title":{"type":"object","name":"Title","id":"p2440","attributes":{"text":"Mean score in taste variables by green coffee color","text_font":"Modern Love","text_font_size":"30px"}},"renderers":[{"type":"object","name":"GlyphRenderer","id":"p2476","attributes":{"data_source":{"type":"object","name":"ColumnDataSource","id":"p2434","attributes":{"selected":{"type":"object","name":"Selection","id":"p2435","attributes":{"indices":[],"line_indices":[]}},"selection_policy":{"type":"object","name":"UnionRenderers","id":"p2436"},"data":{"type":"map","entries":[["index",{"type":"ndarray","array":{"type":"bytes","data":"AAAAAAEAAAACAAAAAwAAAAQAAAAFAAAABgAAAA=="},"shape":[7],"dtype":"int32","order":"little"}],["Color",{"type":"ndarray","array":["bluish-green","browish-green","brownish","greenish","pale yellow","yellow-green","yellowish"],"shape":[7],"dtype":"object","order":"little"}],["Flavor",{"type":"ndarray","array":{"type":"bytes","data":"5ClBnhLkHkAAAAAAAAAgQExdbn+QoR9Aa1MkWorlHkCQwvUoXI8eQH6w4xZKfR9AwvUoXI9CH0A="},"shape":[7],"dtype":"float64","order":"little"}],["Body",{"type":"ndarray","array":{"type":"bytes","data":"c+M7N75zHkApXI/C9SggQPUoXI/C9R5AvxAgM9SJHkAAAAAAAIAeQKYMc9k/ph5AAAAAAADAHkA="},"shape":[7],"dtype":"float64","order":"little"}],["Moisture Percentage",{"type":"ndarray","array":{"type":"bytes","data":"x4BpDJjGJUCamZmZmZkjQMzMzMzMzCVAcuvyDjhSJUAzMzMzM7MlQM3MzMzMzCVAzczMzMwMJkA="},"shape":[7],"dtype":"float64","order":"little"}],["Acidity",{"type":"ndarray","array":{"type":"bytes","data":"sBH/GvGvHkAAAAAAAAAgQERERERERB9ANiDxJleyHkC4HoXrUbgeQPrHlGEu+x5AwvUoXI9CH0A="},"shape":[7],"dtype":"float64","order":"little"}]]}}},"view":{"type":"object","name":"CDSView","id":"p2477","attributes":{"filter":{"type":"object","name":"AllIndices","id":"p2478"}}},"glyph":{"type":"object","name":"VBar","id":"p2473","attributes":{"x":{"type":"field","field":"Color","transform":{"type":"object","name":"Dodge","id":"p2469","attributes":{"value":-0.25,"range":{"id":"p2447"}}}},"width":{"type":"value","value":0.2},"top":{"type":"field","field":"Flavor"},"line_color":{"type":"value","value":"#c9d9d3"},"fill_color":{"type":"value","value":"#c9d9d3"},"hatch_color":{"type":"value","value":"#c9d9d3"}}},"nonselection_glyph":{"type":"object","name":"VBar","id":"p2474","attributes":{"x":{"type":"field","field":"Color","transform":{"id":"p2469"}},"width":{"type":"value","value":0.2},"top":{"type":"field","field":"Flavor"},"line_color":{"type":"value","value":"#c9d9d3"},"line_alpha":{"type":"value","value":0.1},"fill_color":{"type":"value","value":"#c9d9d3"},"fill_alpha":{"type":"value","value":0.1},"hatch_color":{"type":"value","value":"#c9d9d3"},"hatch_alpha":{"type":"value","value":0.1}}},"muted_glyph":{"type":"object","name":"VBar","id":"p2475","attributes":{"x":{"type":"field","field":"Color","transform":{"id":"p2469"}},"width":{"type":"value","value":0.2},"top":{"type":"field","field":"Flavor"},"line_color":{"type":"value","value":"#c9d9d3"},"line_alpha":{"type":"value","value":0.2},"fill_color":{"type":"value","value":"#c9d9d3"},"fill_alpha":{"type":"value","value":0.2},"hatch_color":{"type":"value","value":"#c9d9d3"},"hatch_alpha":{"type":"value","value":0.2}}}}},{"type":"object","name":"GlyphRenderer","id":"p2488","attributes":{"data_source":{"id":"p2434"},"view":{"type":"object","name":"CDSView","id":"p2489","attributes":{"filter":{"type":"object","name":"AllIndices","id":"p2490"}}},"glyph":{"type":"object","name":"VBar","id":"p2485","attributes":{"x":{"type":"field","field":"Color","transform":{"type":"object","name":"Dodge","id":"p2481","attributes":{"range":{"id":"p2447"}}}},"width":{"type":"value","value":0.2},"top":{"type":"field","field":"Body"},"line_color":{"type":"value","value":"#718dbf"},"fill_color":{"type":"value","value":"#718dbf"},"hatch_color":{"type":"value","value":"#718dbf"}}},"nonselection_glyph":{"type":"object","name":"VBar","id":"p2486","attributes":{"x":{"type":"field","field":"Color","transform":{"id":"p2481"}},"width":{"type":"value","value":0.2},"top":{"type":"field","field":"Body"},"line_color":{"type":"value","value":"#718dbf"},"line_alpha":{"type":"value","value":0.1},"fill_color":{"type":"value","value":"#718dbf"},"fill_alpha":{"type":"value","value":0.1},"hatch_color":{"type":"value","value":"#718dbf"},"hatch_alpha":{"type":"value","value":0.1}}},"muted_glyph":{"type":"object","name":"VBar","id":"p2487","attributes":{"x":{"type":"field","field":"Color","transform":{"id":"p2481"}},"width":{"type":"value","value":0.2},"top":{"type":"field","field":"Body"},"line_color":{"type":"value","value":"#718dbf"},"line_alpha":{"type":"value","value":0.2},"fill_color":{"type":"value","value":"#718dbf"},"fill_alpha":{"type":"value","value":0.2},"hatch_color":{"type":"value","value":"#718dbf"},"hatch_alpha":{"type":"value","value":0.2}}}}},{"type":"object","name":"GlyphRenderer","id":"p2499","attributes":{"data_source":{"id":"p2434"},"view":{"type":"object","name":"CDSView","id":"p2500","attributes":{"filter":{"type":"object","name":"AllIndices","id":"p2501"}}},"glyph":{"type":"object","name":"VBar","id":"p2496","attributes":{"x":{"type":"field","field":"Color","transform":{"type":"object","name":"Dodge","id":"p2492","attributes":{"value":0.25,"range":{"id":"p2447"}}}},"width":{"type":"value","value":0.2},"top":{"type":"field","field":"Acidity"},"line_color":{"type":"value","value":"#e84d60"},"fill_color":{"type":"value","value":"#e84d60"},"hatch_color":{"type":"value","value":"#e84d60"}}},"nonselection_glyph":{"type":"object","name":"VBar","id":"p2497","attributes":{"x":{"type":"field","field":"Color","transform":{"id":"p2492"}},"width":{"type":"value","value":0.2},"top":{"type":"field","field":"Acidity"},"line_color":{"type":"value","value":"#e84d60"},"line_alpha":{"type":"value","value":0.1},"fill_color":{"type":"value","value":"#e84d60"},"fill_alpha":{"type":"value","value":0.1},"hatch_color":{"type":"value","value":"#e84d60"},"hatch_alpha":{"type":"value","value":0.1}}},"muted_glyph":{"type":"object","name":"VBar","id":"p2498","attributes":{"x":{"type":"field","field":"Color","transform":{"id":"p2492"}},"width":{"type":"value","value":0.2},"top":{"type":"field","field":"Acidity"},"line_color":{"type":"value","value":"#e84d60"},"line_alpha":{"type":"value","value":0.2},"fill_color":{"type":"value","value":"#e84d60"},"fill_alpha":{"type":"value","value":0.2},"hatch_color":{"type":"value","value":"#e84d60"},"hatch_alpha":{"type":"value","value":0.2}}}}}],"toolbar":{"type":"object","name":"Toolbar","id":"p2444","attributes":{"logo":null,"autohide":true}},"toolbar_location":null,"left":[{"type":"object","name":"LinearAxis","id":"p2461","attributes":{"ticker":{"type":"object","name":"BasicTicker","id":"p2463","attributes":{"mantissas":[1,2,5]}},"formatter":{"type":"object","name":"BasicTickFormatter","id":"p2462"},"axis_label_text_font":"Modern Love","axis_label_text_font_size":"15px","axis_label_text_font_style":"bold","major_label_policy":{"type":"object","name":"AllLabels","id":"p2464"}}}],"below":[{"type":"object","name":"CategoricalAxis","id":"p2455","attributes":{"ticker":{"type":"object","name":"CategoricalTicker","id":"p2457"},"formatter":{"type":"object","name":"CategoricalTickFormatter","id":"p2456"},"axis_label_text_font":"Modern Love","axis_label_text_font_size":"15px","axis_label_text_font_style":"bold","major_label_policy":{"type":"object","name":"AllLabels","id":"p2458"}}}],"center":[{"type":"object","name":"Grid","id":"p2460","attributes":{"axis":{"id":"p2455"},"grid_line_color":null}},{"type":"object","name":"Grid","id":"p2467","attributes":{"dimension":1,"axis":{"id":"p2461"},"grid_line_color":null}},{"type":"object","name":"Legend","id":"p2479","attributes":{"location":"top_left","orientation":"horizontal","items":[{"type":"object","name":"LegendItem","id":"p2480","attributes":{"label":{"type":"value","value":"Mean Flavor"},"renderers":[{"id":"p2476"}]}},{"type":"object","name":"LegendItem","id":"p2491","attributes":{"label":{"type":"value","value":"Mean Body"},"renderers":[{"id":"p2488"}]}},{"type":"object","name":"LegendItem","id":"p2502","attributes":{"label":{"type":"value","value":"Mean Acidity"},"renderers":[{"id":"p2499"}]}}]}}],"background_fill_color":"#FFC300","background_fill_alpha":0.2}}],"callbacks":{"type":"map"}}}
+    </script>
+    <script type="text/javascript">
+      (function() {
+        const fn = function() {
+          Bokeh.safely(function() {
+            (function(root) {
+              function embed_document(root) {
+              const docs_json = document.getElementById('p2600').textContent;
+              const render_items = [{"docid":"3f73b8d0-141d-4493-a3f7-b9125a056d56","roots":{"p2437":"bf1946c1-ad8a-4eae-8326-c71f96a3858c"},"root_ids":["p2437"]}];
+              root.Bokeh.embed.embed_items(docs_json, render_items);
+              }
+              if (root.Bokeh !== undefined) {
+                embed_document(root);
+              } else {
+                let attempts = 0;
+                const timer = setInterval(function(root) {
+                  if (root.Bokeh !== undefined) {
+                    clearInterval(timer);
+                    embed_document(root);
+                  } else {
+                    attempts++;
+                    if (attempts > 100) {
+                      clearInterval(timer);
+                      console.log("Bokeh: ERROR: Unable to run BokehJS code because BokehJS library is missing");
+                    }
+                  }
+                }, 10, root)
+              }
+            })(window);
+          });
+        };
+        if (document.readyState != "loading") fn();
+        else document.addEventListener("DOMContentLoaded", fn);
+      })();
+    </script>
+  </body>
+</html>

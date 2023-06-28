@@ -38,7 +38,17 @@
             display: inline-block;
             margin: 10px;
         }
+
+        #graph-container {
+            text-align: center;
+        }
         
+        #my-object {
+        height : 800px;
+        width : 100%;
+        overflow : hidden;
+    }
+
     </style>
 </head>
 
@@ -67,28 +77,34 @@
             <button>Next</button>
         </div>
 
+        <div id="graph-container">
+            <iframe id = "graph" height="1000px" width="1000px"></iframe>
+        </div>
         
         <div id="card-wrapper">
-            <div class="preview-card">
+            <div class="preview-card" id="graph1">
             </div>
-            <div class="preview-card">
+            <div class="preview-card" id="graph2">
             </div>
-            <div class="preview-card">
+            <div class="preview-card" id="graph3">
             </div>
-            <div class="preview-card">
+            <div class="preview-card" id="graph4">
             </div>
-            <div class="preview-card">
+            <div class="preview-card" id="graph5">
             </div>
-            <div class="preview-card">
+            <div class="preview-card" id="graph6">
             </div>
-            <div class="preview-card">
+            <div class="preview-card" id="graph7">
             </div>
-            <div class="preview-card">
+            <div class="preview-card" id="graph8">
             </div>
-            <div class="preview-card">
+            <div class="preview-card" id="graph9">
             </div>
         </div>
     </div>
+
+    <script src="scripts.js"></script>
+
 </body>
 
 </html>
