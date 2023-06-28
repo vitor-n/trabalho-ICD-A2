@@ -50,12 +50,15 @@ def L_aroma_aftertaste(datapath):
 def L_variety_method(datapath):
     df = df_manipulations.df_variety_method(datapath=datapath)
     
-    #Color palette for the bars
-    colors = Category20[len(df["Processing Method"].unique())]
-    
     # Group the DataFrame by "Variety" and "Processing Method" and calculate the count
     grouped = df.groupby(["Variety", "Processing Method"]).size().unstack()
     varieties = grouped.index.tolist()
+
+    #Creating CDS object
+    source = ColumnDataSource(grouped)
+
+    #Color palette for the bars
+    colors = Category20[len(grouped.columns)]
 
     #Create the plot
     p = figure(x_range=varieties, height=700, width = 1400)
