@@ -323,6 +323,6 @@ def get_means_by_color(dataframe):
     df.loc[df['Color'] == 'yellow green', 'Color'] = 'yellow-green'
     df.loc[df['Color'] == 'yellow- green', 'Color'] = 'yellow-green'
 
-    mean_values = df.groupby('Color')['Flavor', 'Body', "Moisture Percentage",'Acidity'].mean().reset_index()
+    mean_values = df.groupby('Color')[['Flavor', 'Body', "Moisture Percentage",'Acidity']].mean().reset_index()
 
     return mean_values

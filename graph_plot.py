@@ -1,6 +1,6 @@
 import df_manipulations
 from import_data import import_df_for_bokeh
-from graph_style import apply_default_style, apply_dotplot_style, apply_map_style
+from graph_style import apply_default_style, apply_map_style
 
 from bokeh.models import BasicTicker, ColorBar, LinearColorMapper, ColumnDataSource, Whisker, HoverTool, Range1d, ColorBar, LabelSet
 from bokeh.plotting import figure
@@ -133,9 +133,8 @@ def P_acidity_flavor(datapath):
 
     # Apply plot style
     plot = apply_default_style(plot)
-    show(plot)
 
-    # TODO: maybe change the scale limits and size of circles
+    return plot
 
 # 5 graph
 def P_map_mean_overall(datapath):
@@ -170,7 +169,8 @@ def P_map_mean_overall(datapath):
 
     # Apply map style
     plot = apply_map_style(plot)
-    show(plot)
+
+    return plot
 
 # 6 graph
 def P_boxplot_altitude_by_country(datapath):
@@ -213,7 +213,7 @@ def P_boxplot_altitude_by_country(datapath):
     plot = apply_default_style(plot)
     plot.xaxis.major_label_orientation = 45
 
-    show(plot)
+    return plot
 
 # 7 graph
 def V_sensorial_attr_correlation(datapath):
@@ -267,8 +267,7 @@ def V_sensorial_attr_correlation(datapath):
 
     p.add_tools(hover)
 
-    # Display the heatmap
-    show(p)
+    return p
 
 # 8 graph
 def V_altitude_flavor(datapath):
@@ -294,9 +293,9 @@ def V_altitude_flavor(datapath):
     p.add_tools(hover)
 
     # Apply plot style
-    p = apply_dotplot_style(p)
+    p = apply_default_style(p)
 
-    show(p)
+    return p
 
 # 9 graph
 def V_taste_means_by_color(datapath):
@@ -331,5 +330,4 @@ def V_taste_means_by_color(datapath):
     # Apply plot style
     p = apply_default_style(p)
 
-    show(p)
-
+    return p
