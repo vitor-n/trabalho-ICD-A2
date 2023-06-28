@@ -44,7 +44,7 @@ def L_aroma_aftertaste(datapath):
 
     p = apply_default_style(p)
 
-    return show(p)
+    return p
 
 # 2 graph
 def L_variety_method(datapath):
@@ -81,7 +81,7 @@ def L_variety_method(datapath):
 
     p = apply_default_style(p)
 
-    return show(p)
+    return p
 
 # 3 graph
 def L_country_kilos(datapath):
@@ -108,9 +108,7 @@ def L_country_kilos(datapath):
 
     p.xaxis.major_label_text_color = None
 
-    show(p)
-
-    return
+    return p
 
 # 4 graph
 def P_acidity_flavor(datapath):
