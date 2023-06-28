@@ -15,8 +15,14 @@ def P_acidity_flavor(datapath):
     # Get the necessary data
     cds = df_manipulations.get_df_acidity_flavor(datapath)
 
+    tooltips = [
+        ("Flavor score", "@Flavor"),
+        ("Acidity score", "@Acidity"),
+        ("Occurencies", "@count")
+        ]
+
     # Create the plot
-    plot = figure(width=1000, height=700)
+    plot = figure(width=1000, height=700, tooltips = tooltips)
     plot.circle(x="Flavor", y="Acidity", size="Size",
                 color="#732C02", source=cds)
 
@@ -26,7 +32,7 @@ def P_acidity_flavor(datapath):
     plot.title.text = "Relation between coffee scores on Flavor and Acidity"
 
     # Apply plot style
-    plot = apply_dotplot_style(plot)
+    plot = apply_default_style(plot)
     show(plot)
 
     # TODO: maybe change the scale limits and size of circles
