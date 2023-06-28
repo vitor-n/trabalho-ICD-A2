@@ -42,7 +42,7 @@ def P_map_mean_overall(datapath):
     cores = list(Viridis256)
     # To make all the countries without production white
     cores.append("#FFFFFF")
-    color_scheme = linear_cmap("Overall_mean", tuple(cores[::-1]), 7, 8)
+    color_scheme = linear_cmap("Overall_mean", tuple(cores[::-1]), 7.3, 7.9)
 
     # Creates a list of tuples that tells the plot the tooltips to be displayed
     tooltips = [("Country", "@ADMIN"),
@@ -57,7 +57,7 @@ def P_map_mean_overall(datapath):
 
     # Create color legend and add to the plot
     color_legend = ColorBar(color_mapper=color_scheme["transform"],
-                            width=50, height=680)
+                            width=40)
     plot.add_layout(color_legend, "right")
 
     # Set axis limits to fit world map
@@ -174,7 +174,7 @@ def V_sensorial_attr_correlation(datapath):
 def V_altitude_flavor(datapath):
 
     data = df_manipulations.get_df_mean_altitude(
-        datapath[["Altitude", "Flavor", "Overall", "Country of Origin"]])
+        datapath[["Altitude", "Flavor", "Overall", "Country of Origin"]])   
     # Create the plot
     p = figure(width=1000, height=700)
     p.circle_dot(x="Mean Altitude", y="Flavor", size=10, alpha=0.5,
