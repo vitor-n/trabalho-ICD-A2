@@ -144,7 +144,7 @@ def df_country_kilos(datapath):
     df_country_total_kilos["Country of Origin"] = df_country_total_kilos["Country of Origin"].replace(["Tanzania, United Republic Of"], "Tanzania")
     df_country_total_kilos["Country of Origin"] = df_country_total_kilos["Country of Origin"].replace(["United States (Hawaii)"], "Hawaii")
 
-    #Deleting suspiciously high values
+    #Some lots have the total weight in the "Bag Weight" column. I'll drop them and add them later
     df_country_total_kilos = df_country_total_kilos.drop(labels=[35, 116], axis=0)
     
     #Deleting missing values
@@ -173,6 +173,9 @@ def df_country_kilos(datapath):
             for subindex in range(len(countries)):
                 if countries[subindex] == list_of_all_countries[index]:
                     kilos_per_country[subindex] += list_of_kilos[index]
+
+    #Readding the values deleted in "Bag Weight" column as the total weight
+    kilos_per_country[6] += 38400
 
     new_df = {
         "Countries" : countries,
