@@ -5,7 +5,7 @@ from graph_style import apply_default_style, apply_dotplot_style, apply_map_styl
 from bokeh.models import BasicTicker, ColorBar, LinearColorMapper, ColumnDataSource, Whisker, HoverTool, Range1d, ColorBar
 from bokeh.plotting import figure
 from bokeh.palettes import Viridis256, Category20b
-from bokeh.transform import transform, linear_cmap, factor_cmap, jitter
+from bokeh.transform import transform, linear_cmap, factor_cmap, jitter, dodge
 from bokeh.io import show
 
 arabica_coffee_data = import_df_for_bokeh("df_arabica_clean.csv")
@@ -19,10 +19,10 @@ def P_acidity_flavor(datapath):
         ("Flavor score", "@Flavor"),
         ("Acidity score", "@Acidity"),
         ("Occurencies", "@count")
-        ]
+    ]
 
     # Create the plot
-    plot = figure(width=1000, height=700, tooltips = tooltips)
+    plot = figure(width=1000, height=700, tooltips=tooltips)
     plot.circle(x="Flavor", y="Acidity", size="Size",
                 color="#732C02", source=cds)
 
@@ -180,7 +180,7 @@ def V_sensorial_attr_correlation(datapath):
 def V_altitude_flavor(datapath):
 
     data = df_manipulations.get_df_mean_altitude(
-        datapath[["Altitude", "Flavor", "Overall", "Country of Origin"]])   
+        datapath[["Altitude", "Flavor", "Overall", "Country of Origin"]])
     # Create the plot
     p = figure(width=1000, height=700)
     p.circle_dot(x="Mean Altitude", y="Flavor", size=10, alpha=0.5,
@@ -203,3 +203,39 @@ def V_altitude_flavor(datapath):
     p = apply_dotplot_style(p)
 
     show(p)
+
+
+def V_taste_means_by_color(datapath):
+    # Get the data with means by color using df_manipulations.get_means_by_color function
+    df = df_manipulations.get_means_by_color(datapath)
+
+    # Create a ColumnDataSource with the data
+    source = ColumnDataSource(data=df)
+
+    # Create a figure for the bar chart
+    p = figure(x_range=df.Color, y_range=(7, 9), title="Mean score in taste variables by green coffee color", width=600,
+               height=300, toolbar_location=None, tools="")
+
+    # Plot the mean flavor values as vertical bars, offsetting the x position
+    p.vbar(x=dodge('Color', -0.25, range=p.x_range), top='Flavor', source=source,
+           width=0.2, color="#c9d9d3", legend_label="Mean Flavor")
+
+    # Plot the mean body values as vertical bars, offsetting the x position
+    p.vbar(x=dodge('Color', 0.0, range=p.x_range), top='Body', source=source,
+           width=0.2, color="#718dbf", legend_label="Mean Body")
+
+    # Plot the mean acidity values as vertical bars, offsetting the x position
+    p.vbar(x=dodge('Color', 0.25, range=p.x_range), top='Acidity', source=source,
+           width=0.2, color="#e84d60", legend_label="Mean Acidity")
+
+    # Customize the appearance of the figure
+    p.x_range.range_padding = 0.1
+    p.xgrid.grid_line_color = None
+    p.legend.location = "top_left"
+    p.legend.orientation = "horizontal"
+
+    # Apply plot style
+    p = apply_default_style(p)
+
+    show(p)
+

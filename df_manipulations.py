@@ -326,3 +326,16 @@ def get_df_mean_altitude(dataframe):
     df['Mean Altitude'] = mean_altitudes
 
     return df
+
+def get_means_by_color(dataframe):
+    df = dataframe
+
+    df.loc[df['Color'] == 'blue-green', 'Color'] = 'bluish-green'
+    df.loc[df['Color'] == 'green', 'Color'] = 'greenish'
+    df.loc[df['Color'] == 'yello-green', 'Color'] = 'yellow-green'
+    df.loc[df['Color'] == 'yellow green', 'Color'] = 'yellow-green'
+    df.loc[df['Color'] == 'yellow- green', 'Color'] = 'yellow-green'
+
+    mean_values = df.groupby('Color')['Flavor', 'Body', "Moisture Percentage",'Acidity'].mean().reset_index()
+
+    return mean_values
