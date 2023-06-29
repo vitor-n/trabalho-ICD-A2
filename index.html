@@ -7,21 +7,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
+        body {
+            font-size: large;
+        }
 
         #main-container {
             margin: auto;
-            max-width: 60%;
+            max-width: 50%;
         }
 
         #buttons-container {
             text-align: right;
             margin-right: 20px;
         }
-        
+
         h1 {
             text-align: center;
         }
-        
+
         p {
             text-align: justify;
         }
@@ -31,31 +34,42 @@
         }
 
         .preview-card {
-            background-color: grey;
-            width: 30%;
+            width: 150px;
             height: 150px;
-            border-radius: 15px;
             display: inline-block;
             margin: 10px;
+            border: 3px solid black;
+            border-radius: 15px;
         }
 
         #graph-container {
             text-align: center;
         }
-        
-        #my-object {
-        height : 800px;
-        width : 100%;
-        overflow : hidden;
-    }
 
+        #my-object {
+            height: 800px;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        img {
+            position: inherit;
+            height: 100%;
+            width: 100%;
+            border-radius: 15px;
+            -webkit-filter: blur(1px);
+            -moz-filter: blur(1px);
+            -o-filter: blur(1px);
+            -ms-filter: blur(1px);
+            filter: blur(1px);
+        }
     </style>
 </head>
 
 <body>
     <div id="main-container">
         <h1>Coffee ☕</h1>
-        <p>
+        <p id="text">
             Lorem ipsum, dolor sit amet consectetur adipisicing elit. Fugit enim suscipit, ex placeat sit ullam
             assumenda totam tempora ut vel repellendus architecto perspiciatis dolorem unde at libero cupiditate
             asperiores eaque.
@@ -68,7 +82,7 @@
 
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore consequatur quae cumque, blanditiis vel
             reprehenderit, laboriosam obcaecati doloremque est ipsa vero? Facere neque quae explicabo tempora ullam
-            laborum necessitatibus quis? 
+            laborum necessitatibus quis?
         </p>
 
         <div id="buttons-container">
@@ -77,30 +91,40 @@
             <button>Next</button>
         </div>
 
-        <div id="graph-container">
-            <iframe id = "graph" height="1000px" width="1000px"></iframe>
-        </div>
-        
         <div id="card-wrapper">
+
             <div class="preview-card" id="graph1">
+                <img src="images/graph1.png" alt="" srcset="">
             </div>
             <div class="preview-card" id="graph2">
+                <img src="images/graph2.png" alt="" srcset="">
             </div>
             <div class="preview-card" id="graph3">
+                <img src="images/graph3.png" alt="" srcset="">
             </div>
+
             <div class="preview-card" id="graph4">
+                <img src="images/graph4.png" alt="" srcset="">
             </div>
             <div class="preview-card" id="graph5">
+                <img src="images/graph5.png" alt="" srcset="">
             </div>
             <div class="preview-card" id="graph6">
+                <img src="images/graph6.png" alt="" srcset="">
             </div>
+
             <div class="preview-card" id="graph7">
+                <img src="images/graph7.png" alt="" srcset="">
             </div>
             <div class="preview-card" id="graph8">
+                <img src="images/graph8.png" alt="" srcset="">
             </div>
             <div class="preview-card" id="graph9">
+                <img src="images/graph9.png" alt="" srcset="">
             </div>
+
         </div>
+
     </div>
 
     <script src="scripts.js"></script>
