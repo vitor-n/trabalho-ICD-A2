@@ -21,7 +21,7 @@ def L_aroma_aftertaste(datapath):
     source = ColumnDataSource(data=data)
 
     # Creating the plot
-    p = figure(width=1200, height=700)
+    p = figure(width=1200, height=750)
 
     p.circle(x="x", y="y", source=source, fill_color="#732C02",
              line_color="#732C02", size=8)
@@ -60,7 +60,7 @@ def L_variety_method(datapath):
     colors = Category20[len(grouped.columns)]
 
     # Create the plot
-    p = figure(x_range=varieties, height=700, width=1200)
+    p = figure(x_range=varieties, height=750, width=1200)
 
     # Stacked bar chart for each processing method
     for index, method in enumerate(grouped.columns):
@@ -89,7 +89,7 @@ def L_country_kilos(datapath):
 
     # Create plot
     p = figure(y_range=df["Countries"], width=1200,
-               height=700, title="Coffee Production by Country")
+               height=750, title="Coffee Production by Country")
     source = ColumnDataSource(df)
 
     # Add glyph
@@ -121,7 +121,7 @@ def P_acidity_flavor(datapath):
     ]
 
     # Create the plot
-    plot = figure(width=1200, height=700, tooltips=tooltips)
+    plot = figure(width=1200, height=750, tooltips=tooltips)
     plot.circle(x="Flavor", y="Acidity", size="Size",
                 color="#732C02", source=cds)
 
@@ -152,7 +152,7 @@ def P_map_mean_overall(datapath):
 
     # Create the plot (width includes legend width and height include title
     # height in order to have the map with proper proportions)
-    plot = figure(width=1200, height=700, tooltips=tooltips,
+    plot = figure(width=1200, height=750, tooltips=tooltips,
                   title="Mean of overall scores for coffees, by country")
     plot.patches('xs', 'ys', source=world_map, line_color='black',
                  line_width=0.25, fill_alpha=1, fill_color=color_scheme)
@@ -180,7 +180,7 @@ def P_boxplot_altitude_by_country(datapath):
     # Create the plot (x_range says wich categories X axis have)
     # The tools were removed because they don't make sense in the boxplot
     plot = figure(x_range=country_list, toolbar_location=None,
-                  tools="", width=1200, height=700)
+                  tools="", width=1200, height=750)
 
     # To do a boxplot in bokeh, it's necessay to plot three elements individualy:
     # The whiskers, the boxes (plotted as bars) and the outliers
@@ -220,6 +220,8 @@ def V_sensorial_attr_correlation(datapath):
     # Get the correlation matrix using the provided data
     df = df_manipulations.get_correlation_matrix(datapath)
 
+    source = ColumnDataSource(df)
+
     # Define colors for the heatmap
     colors = list(Viridis256)
 
@@ -229,8 +231,8 @@ def V_sensorial_attr_correlation(datapath):
 
     # Create a Bokeh figure for the heatmap
     p = figure(
-        width=700,
-        height=700,
+        width=750,
+        height=750,
         title="Correlation of score attributes",
         x_range=list(df.sensory_variables1.drop_duplicates()),
         y_range=list(reversed(df.sensory_variables2.drop_duplicates())),
@@ -244,7 +246,7 @@ def V_sensorial_attr_correlation(datapath):
         y="sensory_variables2",
         width=1,
         height=1,
-        source=ColumnDataSource(df),
+        source=source,
         line_color=None,
         color=transform('correlation', color_mapper))
 
@@ -255,7 +257,7 @@ def V_sensorial_attr_correlation(datapath):
 
     # Add the color bar to the figure
     p.add_layout(color_bar, "right")
-
+    
     # Add hover tool to display correlation value
     hover = HoverTool(
         tooltips=[
@@ -277,7 +279,7 @@ def V_altitude_flavor(datapath):
     
     source = ColumnDataSource(data)
 
-    p = figure(width=1200, height=700)
+    p = figure(width=1200, height=750)
     p.circle_dot(x="Mean Altitude", y="Flavor", size=12, alpha=0.5,
                  color="#732C02", source=source)
 
@@ -293,7 +295,6 @@ def V_altitude_flavor(datapath):
             ('Flavor Score', '@Flavor')])
 
     p.add_tools(hover)
-
     # Apply plot style
     p = apply_default_style(p)
 
@@ -309,7 +310,7 @@ def V_taste_means_by_color(datapath):
 
     # Create a figure for the bar chart
     p = figure(x_range=df.Color, y_range=(7, 9), width=1200,
-               height=700, toolbar_location=None, tools="")
+               height=750, toolbar_location=None, tools="")
 
     # Plot the mean flavor values as vertical bars, offsetting the x position
     p.vbar(x=dodge('Color', -0.25, range=p.x_range), top='Flavor', source=source,

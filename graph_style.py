@@ -1,4 +1,6 @@
 
+from bokeh.models.tools import PanTool
+
 def apply_default_style(p):
     """
     
@@ -11,12 +13,24 @@ def apply_default_style(p):
     """
     
     #Axis
-    p.xaxis.axis_label_text_font_size = '15px'
-    p.yaxis.axis_label_text_font_size = "15px"
+    p.xaxis.axis_label_text_font_size = '17px'
+    p.yaxis.axis_label_text_font_size = "17px"
     p.xaxis.axis_label_text_font_style = "bold"
     p.yaxis.axis_label_text_font_style = "bold"
     p.yaxis.axis_label_text_font = "Modern Love"
     p.xaxis.axis_label_text_font = "Modern Love"
+    p.xaxis.axis_line_width = 2
+    p.yaxis.axis_line_width = 2
+    p.xaxis.major_tick_line_width = 2
+    p.yaxis.major_tick_line_width = 2
+
+    p.xaxis.major_label_text_font_size = "9pt"
+    p.yaxis.major_label_text_font_size = "9pt"
+
+    p.xaxis.major_label_text_font_style = "bold"
+    p.yaxis.major_label_text_font_style = "bold"
+
+
 
     #Title
     p.title.text_font = "Modern Love"
@@ -33,7 +47,7 @@ def apply_default_style(p):
 
     #Toolbar
     p.toolbar.logo = None
-    p.toolbar.autohide = True 
+    p.toolbar.autohide = True
 
     return p
 
