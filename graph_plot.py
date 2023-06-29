@@ -21,19 +21,19 @@ def L_aroma_aftertaste(datapath):
     source = ColumnDataSource(data=data)
 
     # Creating the plot
-    p = figure(width=1000, height=700)
+    p = figure(width=1200, height=700)
 
     p.circle(x="x", y="y", source=source, fill_color="#732C02",
-             line_color="#732C02", size=4)
+             line_color="#732C02", size=8)
 
     # Points' labels
     labels = LabelSet(x="x", y="y", text="countries",
                       text_font_size="8pt", text_font="Modern Love", text_font_style="bold",
-                      x_offset=2, y_offset=0, source=source)
+                      x_offset=2, y_offset=1, source=source)
 
     # Axis
-    p.x_range = Range1d(7.2, 8.2)
-    p.y_range = Range1d(7.2, 8)
+    p.x_range = Range1d(7.2, 8.1)
+    p.y_range = Range1d(7.1, 8)
 
     p.xaxis.axis_label = "Mean aroma"
     p.yaxis.axis_label = "Mean aftertaste"
@@ -60,7 +60,7 @@ def L_variety_method(datapath):
     colors = Category20[len(grouped.columns)]
 
     # Create the plot
-    p = figure(x_range=varieties, height=700, width=1400)
+    p = figure(x_range=varieties, height=700, width=1200)
 
     # Stacked bar chart for each processing method
     for index, method in enumerate(grouped.columns):
@@ -88,7 +88,7 @@ def L_country_kilos(datapath):
     df = df.sort_values("Kilos of Coffee")
 
     # Create plot
-    p = figure(y_range=df["Countries"], width=1500,
+    p = figure(y_range=df["Countries"], width=1200,
                height=700, title="Coffee Production by Country")
     source = ColumnDataSource(df)
 
@@ -121,7 +121,7 @@ def P_acidity_flavor(datapath):
     ]
 
     # Create the plot
-    plot = figure(width=1000, height=700, tooltips=tooltips)
+    plot = figure(width=1200, height=700, tooltips=tooltips)
     plot.circle(x="Flavor", y="Acidity", size="Size",
                 color="#732C02", source=cds)
 
@@ -152,7 +152,7 @@ def P_map_mean_overall(datapath):
 
     # Create the plot (width includes legend width and height include title
     # height in order to have the map with proper proportions)
-    plot = figure(width=1330, height=735, tooltips=tooltips,
+    plot = figure(width=1200, height=700, tooltips=tooltips,
                   title="Mean of overall scores for coffees, by country")
     plot.patches('xs', 'ys', source=world_map, line_color='black',
                  line_width=0.25, fill_alpha=1, fill_color=color_scheme)
@@ -180,7 +180,7 @@ def P_boxplot_altitude_by_country(datapath):
     # Create the plot (x_range says wich categories X axis have)
     # The tools were removed because they don't make sense in the boxplot
     plot = figure(x_range=country_list, toolbar_location=None,
-                  tools="", width=1280, height=720)
+                  tools="", width=1200, height=700)
 
     # To do a boxplot in bokeh, it's necessay to plot three elements individualy:
     # The whiskers, the boxes (plotted as bars) and the outliers
@@ -229,9 +229,9 @@ def V_sensorial_attr_correlation(datapath):
 
     # Create a Bokeh figure for the heatmap
     p = figure(
-        width=800,
-        height=800,
-        title="Correlation between sensorial attributes",
+        width=700,
+        height=700,
+        title="Correlation of score attributes",
         x_range=list(df.sensory_variables1.drop_duplicates()),
         y_range=list(reversed(df.sensory_variables2.drop_duplicates())),
         toolbar_location=None,
@@ -251,8 +251,7 @@ def V_sensorial_attr_correlation(datapath):
     # Create a color bar to represent the correlation values
     color_bar = ColorBar(
         color_mapper=color_mapper,
-        location=(0, 0),
-        ticker=BasicTicker(desired_num_ticks=20))
+        location=(0, 0))
 
     # Add the color bar to the figure
     p.add_layout(color_bar, "right")
@@ -266,6 +265,8 @@ def V_sensorial_attr_correlation(datapath):
 
     p.add_tools(hover)
 
+    p = apply_default_style(p)
+
     return p
 
 # 8 graph
@@ -273,14 +274,16 @@ def V_altitude_flavor(datapath):
 
     data = df_manipulations.get_df_mean_altitude(
         datapath[["Altitude", "Flavor", "Overall", "Country of Origin"]])
-    # Create the plot
-    p = figure(width=1000, height=700)
-    p.circle_dot(x="Mean Altitude", y="Flavor", size=10, alpha=0.5,
-                 color="#732C02", source=ColumnDataSource(data))
+    
+    source = ColumnDataSource(data)
+
+    p = figure(width=1200, height=700)
+    p.circle_dot(x="Mean Altitude", y="Flavor", size=12, alpha=0.5,
+                 color="#732C02", source=source)
 
     p.yaxis.axis_label = "Score on Flavor"
     p.xaxis.axis_label = "Mean Altitude"
-    p.title.text = "Relation between coffee Flavor score and Altitude"
+    p.title.text = "Flavor score and mean altitude"
 
     # Add hover tool to display correlation value
     hover = HoverTool(
@@ -305,12 +308,12 @@ def V_taste_means_by_color(datapath):
     source = ColumnDataSource(data=df)
 
     # Create a figure for the bar chart
-    p = figure(x_range=df.Color, y_range=(7, 9), title="Mean score in taste variables by green coffee color", width=600,
-               height=300, toolbar_location=None, tools="")
+    p = figure(x_range=df.Color, y_range=(7, 9), width=1200,
+               height=700, toolbar_location=None, tools="")
 
     # Plot the mean flavor values as vertical bars, offsetting the x position
     p.vbar(x=dodge('Color', -0.25, range=p.x_range), top='Flavor', source=source,
-           width=0.2, color="#c9d9d3", legend_label="Mean Flavor")
+           width=0.2, color="#b2e061", legend_label="Mean Flavor")
 
     # Plot the mean body values as vertical bars, offsetting the x position
     p.vbar(x=dodge('Color', 0.0, range=p.x_range), top='Body', source=source,
@@ -318,13 +321,16 @@ def V_taste_means_by_color(datapath):
 
     # Plot the mean acidity values as vertical bars, offsetting the x position
     p.vbar(x=dodge('Color', 0.25, range=p.x_range), top='Acidity', source=source,
-           width=0.2, color="#e84d60", legend_label="Mean Acidity")
+           width=0.2, color="#bd7ebe", legend_label="Mean Acidity")
 
     # Customize the appearance of the figure
-    p.x_range.range_padding = 0.1
-    p.xgrid.grid_line_color = None
-    p.legend.location = "top_left"
+    p.legend.location = "top_right"
     p.legend.orientation = "horizontal"
+
+
+    p.yaxis.axis_label = "Score"
+    p.xaxis.axis_label = "Green coffee color"
+    p.title.text ="Mean score in taste variables by green coffee color"
 
     # Apply plot style
     p = apply_default_style(p)

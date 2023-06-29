@@ -202,7 +202,7 @@ def get_df_acidity_flavor(dataframe):
     count_dataframe = count_dataframe.rename(columns = {0: "count"})
 
     #Create collumn with size (using count directily would make the dots very small)
-    count_dataframe["Size"] = count_dataframe["count"] + 3
+    count_dataframe["Size"] = count_dataframe["count"] * 2 + 3
 
     return ColumnDataSource(count_dataframe)
 
