@@ -24,12 +24,12 @@ def L_aroma_aftertaste(datapath):
     plot = figure(width=1200, height=750)
 
     plot.circle(x="x", y="y", source=source, fill_color="#732C02",
-                line_color="#732C02", size=8)
+                line_color="#732C02", size=12)
 
     # Points' labels
     labels = LabelSet(x="x", y="y", text="countries",
-                      text_font_size="8pt", text_font="Modern Love", text_font_style="bold",
-                      x_offset=2, y_offset=1, source=source)
+                      text_font_size="9pt", text_font="Modern Love", text_font_style="bold",
+                      x_offset=10, y_offset=1, source=source)
 
     # Axis
     plot.x_range = Range1d(7.2, 8.1)
