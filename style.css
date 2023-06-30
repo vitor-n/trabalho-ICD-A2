@@ -1,6 +1,7 @@
 body {
     font-size: large;
     text-align: center;
+    margin: 50px 0 50px 0;
 }
 
 h1 {
@@ -58,9 +59,10 @@ hr {
 }
 
 
-.text {
+.preview-title {
     color: white;
-    font-size: 20px;
+    font-weight: bold;
+    font-size: 12px;
     position: absolute;
     top: 50%;
     left: 50%;
