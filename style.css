@@ -4,6 +4,11 @@ body {
     margin: 50px 0 50px 0;
 }
 
+iframe {
+    padding-top: 50px;
+    padding-top: 50px;
+}
+
 h1 {
     text-align: center;
 }
@@ -15,7 +20,6 @@ p {
 img {
     height: 100%;
     width: 100%;
-    border-radius: 12px;
 }
 
 hr {
@@ -44,25 +48,17 @@ hr {
     height: 150px;
     display: inline-block;
     margin: 10px;
-    border: 3px solid black;
-    border-radius: 15px;
+    border: 3px solid rgb(145, 130, 130);
 }
 
 #graph-container {
     text-align: center;
 }
 
-#my-object {
-    height: 800px;
-    width: 100%;
-    overflow: hidden;
-}
-
-
 .preview-title {
     color: white;
-    font-weight: bold;
-    font-size: 12px;
+    font-weight: bolder;
+    font-size: 13px;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -79,12 +75,27 @@ hr {
 
 
 .overlay {
-    border-radius: 12px;
     position: absolute;
     top: -100;
     height: 100%;
     width: 100%;
     opacity: 0;
     transition: .5s ease;
-    background-color: rgb(175, 160, 160);
+    background-color: rgb(165, 150, 150);
+}
+
+button {
+    font-size: 2rem;
+    border: 2px solid rgb(145, 130, 130);
+    background: none;
+    padding: 5px 15px;
+    cursor: pointer;
+    font-size: large;
+    font-weight: bold;
+    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+
+button:hover {
+    background-color: rgb(165, 150, 150);
+    color: white;
 }

@@ -9,10 +9,11 @@
     <link rel="stylesheet" href="style.css">
 </head>
 
-<body>
+<body onload="ready()">
     <div class="container">
-        <h1>Coffee ☕</h1>
-        <div class="text-container" id="text-home" >
+        <h1>Trabalho A2 - Introdução a Ciência de Dados</h1>
+        <div class="text-container" id="text-home">
+            <h2>Trabalho A2 - Introdução a Ciência de Dados ☕</h2>
             <p>
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque obcaecati pariatur vero quam fugiat?
                 Ipsa
@@ -99,12 +100,13 @@
         </div>
 
         <div id="buttons-container">
-            <button>Home</button>
-            <button>Previous</button>
-            <button>Next</button>
+            <button id="home" onclick="home()">home</button>
+            <button id="back" onclick="back()">&#8249;</button>
+            <button id="next" onclick="next()">&#8250;</button>
         </div>
     </div>
-    <iframe id="graph" frameborder="0" width="0" height="0"></iframe>
+
+    <iframe id="graph-iframe" frameborder="0" width="0" height="0"></iframe>
 
     <div class="container">
         <hr>
