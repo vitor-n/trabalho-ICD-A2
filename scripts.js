@@ -20,53 +20,58 @@ divs.forEach(function (element) {
         // Get the specific action based on the element's attributes or content
         if (element.getAttribute("id") === "graph1") {
             graph.src = "graphs/larissa/graph1.html";
+            graph.style.width = "1200px";
             window.scrollTo(0, 0);
-            adjustGraphHeight();
+            
 
         } else if (element.getAttribute("id") === "graph2") {
             graph.src = "graphs/larissa/graph2.html";
+            graph.style.width = "1200px";
             window.scrollTo(0, 0);
-            adjustGraphHeight();
+            
 
         } else if (element.getAttribute("id") === "graph3") {
             graph.src = "graphs/larissa/graph3.html";
+            graph.style.width = "1200px";
             window.scrollTo(0, 0);
-            adjustGraphHeight();
+            
 
         } else if (element.getAttribute("id") === "graph4") {
             graph.src = "graphs/pedro/graph1.html";
+            graph.style.width = "1200px";
             window.scrollTo(0, 0);
-            adjustGraphHeight();
+            
 
         } else if (element.getAttribute("id") === "graph5") {
             graph.src = "graphs/pedro/graph2.html";
+            graph.style.width = "1200px";
             window.scrollTo(0, 0);
-            adjustGraphHeight();
+            
 
         } else if (element.getAttribute("id") === "graph6") {
             graph.src = "graphs/pedro/graph3.html";
+            graph.style.width = "1200px";
             window.scrollTo(0, 0);
-            adjustGraphHeight();
+            
 
         } else if (element.getAttribute("id") === "graph7") {
             graph.src = "graphs/vitor/graph1.html";
+            graph.style.width = "750px";
             window.scrollTo(0, 0);
-            adjustGraphHeight();
+            
 
         } else if (element.getAttribute("id") === "graph8") {
             graph.src = "graphs/vitor/graph2.html";
+            graph.style.width = "1200px";
             window.scrollTo(0, 0);
-            adjustGraphHeight();
+            
 
         } else if (element.getAttribute("id") === "graph9") {
             graph.src = "graphs/vitor/graph3.html";
+            graph.style.width = "1200px";
             window.scrollTo(0, 0);
-            adjustGraphHeight();
+            
         }
     });
 });
 
-function adjustGraphHeight() {
-    graph.style.height = graph.contentWindow.document.body.scrollHeight + 'px';
-    graph.style.width = graph.contentWindow.document.body.scrollWidth + 'px';
-}

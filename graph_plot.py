@@ -143,7 +143,7 @@ def P_map_mean_overall(datapath):
     # Create a color mapping to the countries in map based on overall atribute
     cores = list(Viridis256)
     # To make all the countries without production white
-    cores.append("#FFFFFF")
+    cores.append("#e4e5e7")
     color_scheme = linear_cmap("Overall_mean", tuple(cores[::-1]), 7.3, 7.9)
 
     # Creates a list of tuples that tells the plot the tooltips to be displayed
