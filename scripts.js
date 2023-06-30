@@ -15,16 +15,7 @@ var text = document.getElementById("text");
 const divs = document.querySelectorAll('.preview-card');
 
 divs.forEach(function (element) {
-    element.addEventListener("mouseover", function () {
-        // Change the mouse cursor to pointer
-        element.style.cursor = "pointer";
-    });
 
-    element.addEventListener("mouseout", function () {
-        // Reset the mouse cursor
-        element.style.cursor = "auto";
-    });
-    
     element.addEventListener("click", function () {
         // Hides every text container
         [].forEach.call(document.querySelectorAll('.text-container'), function (el) {
