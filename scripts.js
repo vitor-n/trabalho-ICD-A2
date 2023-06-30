@@ -22,7 +22,8 @@ divs.forEach(function (element) {
             el.style.display = 'none';
         });
         
-        
+        graph.style.height = "750px";
+
         // Scroll to the top of the window
         window.scrollTo({top: 0, behavior: 'smooth'});
 
