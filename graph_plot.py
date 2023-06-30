@@ -21,9 +21,9 @@ def L_aroma_aftertaste(datapath):
     source = ColumnDataSource(data=data)
 
     # Creating the plot
-    p = figure(width=1200, height=750)
+    plot = figure(width=1200, height=750)
 
-    p.circle(x="x", y="y", source=source, fill_color="#732C02",
+    plot.circle(x="x", y="y", source=source, fill_color="#732C02",
              line_color="#732C02", size=8)
 
     # Points' labels
@@ -32,18 +32,23 @@ def L_aroma_aftertaste(datapath):
                       x_offset=2, y_offset=1, source=source)
 
     # Axis
-    p.x_range = Range1d(7.2, 8.1)
-    p.y_range = Range1d(7.1, 8)
+    plot.x_range = Range1d(7.2, 8.1)
+    plot.y_range = Range1d(7.1, 8)
 
-    p.xaxis.axis_label = "Mean aroma"
-    p.yaxis.axis_label = "Mean aftertaste"
-    p.title.text = "Mean aroma and aftertaste by country"
+    plot.xaxis.axis_label = "Mean aroma"
+    plot.yaxis.axis_label = "Mean aftertaste"
+    plot.title.text = "Mean aroma and aftertaste by country"
 
-    p.add_layout(labels)
+    plot.ygrid.minor_grid_line_color = "#aaaaaa"
+    plot.ygrid.minor_grid_line_dash = 'dotted'
+    plot.xgrid.minor_grid_line_color = "#aaaaaa"
+    plot.xgrid.minor_grid_line_dash = 'dotted'
 
-    p = apply_default_style(p)
+    plot.add_layout(labels)
 
-    return p
+    plot = apply_default_style(plot)
+
+    return plot
 
 # 2 graph
 def L_variety_method(datapath):
@@ -60,27 +65,31 @@ def L_variety_method(datapath):
     colors = Category20[len(grouped.columns)]
 
     # Create the plot
-    p = figure(x_range=varieties, height=750, width=1200)
+    plot = figure(x_range=varieties, height=750, width=1200)
 
     # Stacked bar chart for each processing method
     for index, method in enumerate(grouped.columns):
-        p.vbar(x=varieties, top=grouped[method], width=0.8, color=colors[index],
+        plot.vbar(x=varieties, top=grouped[method], width=0.8, color=colors[index],
                legend_label=method)
 
     # Legends
-    p.legend.location = "center"
-    p.add_layout(p.legend[0], 'right')
+    plot.legend.location = "center"
+    plot.add_layout(plot.legend[0], 'right')
 
     # Axis label and title
-    p.xaxis.axis_label = "Coffee varieties"
-    p.yaxis.axis_label = "Number of lots"
-    p.title.text = "Processing methods by coffee variety"
+    plot.xaxis.axis_label = "Coffee varieties"
+    plot.yaxis.axis_label = "Number of lots"
+    plot.title.text = "Processing methods by coffee variety"
 
-    p.xaxis.major_label_orientation = "vertical"
+    plot.xaxis.major_label_orientation = "vertical"
 
-    p = apply_default_style(p)
+    plot.ygrid.grid_line_color = "grey"
+    plot.ygrid.minor_grid_line_color = "#999999"
+    plot.ygrid.minor_grid_line_dash = 'dotted'
 
-    return p
+    plot = apply_default_style(plot)
+
+    return plot
 
 # 3 graph
 def L_country_kilos(datapath):
@@ -88,26 +97,26 @@ def L_country_kilos(datapath):
     df = df.sort_values("Kilos of Coffee")
 
     # Create plot
-    p = figure(y_range=df["Countries"], width=1200,
+    plot = figure(y_range=df["Countries"], width=1200,
                height=750, title="Coffee Production by Country")
     source = ColumnDataSource(df)
 
     # Add glyph
-    p.hbar(y='Countries', right='Kilos of Coffee', fill_color="red",
+    plot.hbar(y='Countries', right='Kilos of Coffee', fill_color="red",
            line_color="red", height=0.5, source=source)
 
     # Add annotations
-    p.text(x='Kilos of Coffee', y='Countries', text='Kilos of Coffee', text_baseline='middle', text_align='left',
+    plot.text(x='Kilos of Coffee', y='Countries', text='Kilos of Coffee', text_baseline='middle', text_align='left',
            source=source, text_font_size='9pt', text_font_style="italic", x_offset=5)
 
     # Apply elements of style
-    p = apply_default_style(p)
-    p.yaxis.axis_label = "Countries"
-    p.xaxis.axis_label = "Kilos of Coffee"
+    plot = apply_default_style(plot)
+    plot.yaxis.axis_label = "Countries"
+    plot.xaxis.axis_label = "Kilos of Coffee"
 
-    p.xaxis.major_label_text_color = None
+    plot.xaxis.major_label_text_color = None
 
-    return p
+    return plot
 
 # 4 graph
 def P_acidity_flavor(datapath):
@@ -129,6 +138,11 @@ def P_acidity_flavor(datapath):
     plot.xaxis.axis_label = "Score on Flavor"
     plot.yaxis.axis_label = "Score on Acidity"
     plot.title.text = "Relation between coffee scores on Flavor and Acidity"
+
+    plot.ygrid.minor_grid_line_color = "#aaaaaa"
+    plot.ygrid.minor_grid_line_dash = 'dotted'
+    plot.xgrid.minor_grid_line_color = "#aaaaaa"
+    plot.xgrid.minor_grid_line_dash = 'dotted'
 
     # Apply plot style
     plot = apply_default_style(plot)
@@ -212,6 +226,9 @@ def P_boxplot_altitude_by_country(datapath):
     plot = apply_default_style(plot)
     plot.xaxis.major_label_orientation = 45
 
+    plot.ygrid.minor_grid_line_color = "#999999"
+    plot.ygrid.minor_grid_line_dash = 'dotted'
+
     return plot
 
 # 7 graph
@@ -230,7 +247,7 @@ def V_sensorial_attr_correlation(datapath):
         palette=colors, low=df.correlation.min(), high=df.correlation.max())
 
     # Create a Bokeh figure for the heatmap
-    p = figure(
+    plot = figure(
         width=750,
         height=750,
         title="Correlation of score attributes",
@@ -241,7 +258,7 @@ def V_sensorial_attr_correlation(datapath):
         x_axis_location="above")
 
     # Add rectangles representing the correlation values to the figure
-    p.rect(
+    plot.rect(
         x="sensory_variables1",
         y="sensory_variables2",
         width=1,
@@ -256,7 +273,7 @@ def V_sensorial_attr_correlation(datapath):
         location=(0, 0))
 
     # Add the color bar to the figure
-    p.add_layout(color_bar, "right")
+    plot.add_layout(color_bar, "right")
     
     # Add hover tool to display correlation value
     hover = HoverTool(
@@ -265,11 +282,11 @@ def V_sensorial_attr_correlation(datapath):
             ('Attribute 1', "@sensory_variables1"),
             ("Attribute 2", "@sensory_variables2")])
 
-    p.add_tools(hover)
+    plot.add_tools(hover)
 
-    p = apply_default_style(p)
+    plot = apply_default_style(plot)
 
-    return p
+    return plot
 
 # 8 graph
 def V_altitude_flavor(datapath):
@@ -279,26 +296,33 @@ def V_altitude_flavor(datapath):
     
     source = ColumnDataSource(data)
 
-    p = figure(width=1200, height=750)
-    p.circle_dot(x="Mean Altitude", y="Flavor", size=12, alpha=0.5,
+    plot = figure(width=1200, height=750)
+
+    plot.circle_dot(x="Mean Altitude", y="Flavor", size=15, alpha=0.5,
                  color="#732C02", source=source)
 
-    p.yaxis.axis_label = "Score on Flavor"
-    p.xaxis.axis_label = "Mean Altitude"
-    p.title.text = "Flavor score and mean altitude"
-
-    # Add hover tool to display correlation value
+    # Add hover tool to display correlation values
     hover = HoverTool(
         tooltips=[
             ('Country of Origin', "@{Country of Origin}"),
-            ("Mean Altitude", "@{Mean Altitude} meters"),
+            ("Mean Altitude", "@{Mean Altitude}{0.00} meters"),
             ('Flavor Score', '@Flavor')])
+    
+    plot.add_tools(hover)
 
-    p.add_tools(hover)
+    plot.yaxis.axis_label = "Score on Flavor"
+    plot.xaxis.axis_label = "Mean Altitude"
+    plot.title.text = "Flavor score and mean altitude"
+
+    plot.ygrid.minor_grid_line_color = "#aaaaaa"
+    plot.ygrid.minor_grid_line_dash = 'dotted'
+    plot.xgrid.minor_grid_line_color = "#aaaaaa"
+    plot.xgrid.minor_grid_line_dash = 'dotted'
+
     # Apply plot style
-    p = apply_default_style(p)
+    plot = apply_default_style(plot)
 
-    return p
+    return plot
 
 # 9 graph
 def V_taste_means_by_color(datapath):
@@ -309,31 +333,43 @@ def V_taste_means_by_color(datapath):
     source = ColumnDataSource(data=df)
 
     # Create a figure for the bar chart
-    p = figure(x_range=df.Color, y_range=(7, 9), width=1200,
+    plot = figure(x_range=df.Color, y_range=(7, 9), width=1200,
                height=750, toolbar_location=None, tools="")
 
     # Plot the mean flavor values as vertical bars, offsetting the x position
-    p.vbar(x=dodge('Color', -0.25, range=p.x_range), top='Flavor', source=source,
+    plot.vbar(x=dodge('Color', -0.25, range=plot.x_range), top='Flavor', source=source,
            width=0.2, color="#b2e061", legend_label="Mean Flavor")
 
     # Plot the mean body values as vertical bars, offsetting the x position
-    p.vbar(x=dodge('Color', 0.0, range=p.x_range), top='Body', source=source,
+    plot.vbar(x=dodge('Color', 0.0, range=plot.x_range), top='Body', source=source,
            width=0.2, color="#718dbf", legend_label="Mean Body")
 
     # Plot the mean acidity values as vertical bars, offsetting the x position
-    p.vbar(x=dodge('Color', 0.25, range=p.x_range), top='Acidity', source=source,
+    plot.vbar(x=dodge('Color', 0.25, range=plot.x_range), top='Acidity', source=source,
            width=0.2, color="#bd7ebe", legend_label="Mean Acidity")
+    
+    hover = HoverTool(
+        tooltips=[
+            ('Color', "@Color"),
+            ("Mean Flavor", "@Flavor"),
+            ('Mean Body', '@Body'),
+            ('Mean Acidity', '@Acidity')])
+
+    plot.add_tools(hover)
 
     # Customize the appearance of the figure
-    p.legend.location = "top_right"
-    p.legend.orientation = "horizontal"
+    plot = apply_default_style(plot)
 
+    plot.legend.location = "top_right"
+    plot.legend.orientation = "horizontal"
 
-    p.yaxis.axis_label = "Score"
-    p.xaxis.axis_label = "Green coffee color"
-    p.title.text ="Mean score in taste variables by green coffee color"
+    plot.yaxis.axis_label = "Score"
+    plot.xaxis.axis_label = "Green coffee color"
+    plot.title.text ="Mean score in taste variables by green coffee color"
 
-    # Apply plot style
-    p = apply_default_style(p)
+    # Customize grids appearance
+    plot.ygrid.grid_line_color = "grey"
+    plot.ygrid.minor_grid_line_color = "#999999"
+    plot.ygrid.minor_grid_line_dash = 'dotted'
 
-    return p
+    return plot

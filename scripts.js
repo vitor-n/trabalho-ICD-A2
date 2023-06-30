@@ -17,6 +17,8 @@ divs.forEach(function (element) {
     });
     
     element.addEventListener("click", function () {
+        graph.style.height = "750px";
+
         // Get the specific action based on the element's attributes or content
         if (element.getAttribute("id") === "graph1") {
             graph.src = "graphs/larissa/graph1.html";

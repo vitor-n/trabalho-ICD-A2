@@ -1,6 +1,4 @@
 
-from bokeh.models.tools import PanTool
-
 def apply_default_style(p):
     """
     
