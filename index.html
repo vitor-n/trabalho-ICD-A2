@@ -6,38 +6,58 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body onload="ready()">
+    <div id="header">
+        <h2>Trabalho A2 - Introdução a Ciência de Dados</h2><a href="https://github.com/vito0182/trabalho-ICD-A2"
+            target="_blank"><img id="github-logo" src="images/github-mark-white.png" height="50px"></a>
+    </div>
     <div class="container">
-        <h1>Trabalho A2 - Introdução a Ciência de Dados</h1>
+        <div id="buttons-container">
+            <button id="home" onclick="home()"><i class="fa fa-home"></i></button>
+            <button id="back" onclick="back()">&#8249;</button>
+            <button id="next" onclick="next()">&#8250;</button>
+        </div>
         <div class="text-container" id="text-home">
-            <h2>Trabalho A2 - Introdução a Ciência de Dados ☕</h2>
+            <h3>Coffe Quality Visualizations ☕</h3>
             <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque obcaecati pariatur vero quam fugiat?
-                Ipsa
-                pariatur quisquam doloremque error odio vel enim. Sunt beatae quod fugit, ut tempore eius repellendus.
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque obcaecati pariatur vero quam fugiat?
-                Ipsa
-                pariatur quisquam doloremque error odio vel enim. Sunt beatae quod fugit, ut tempore eius repellendus.
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque obcaecati pariatur vero quam fugiat?
-                Ipsa
-                pariatur quisquam doloremque error odio vel enim. Sunt beatae quod fugit, ut tempore eius repellendus.
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque obcaecati pariatur vero quam fugiat?
-                Ipsa
-                pariatur quisquam doloremque error odio vel enim. Sunt beatae quod fugit, ut tempore eius repellendus.
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque obcaecati pariatur vero quam fugiat?
-                Ipsa
-                pariatur quisquam doloremque error odio vel enim. Sunt beatae quod fugit, ut tempore eius repellendus.
+                In the present work, we made visualizations about coffee quality using Bokeh. The dataset used was
+                obtained from the Coffee Quality Institute, a reference institution in the evaluation and certification
+                of coffee quality on a global scale. The dataset is avaiable at <a
+                    href="https://www.kaggle.com/datasets/fatihb/coffee-quality-data-cqi" target="_blank"
+                    rel="noopener noreferrer">Coffee Quality Data CQI</a>.
+            </p>
+            <h4>About</h4>
+            <p>
+                Coffee is a widely appreciated and consumed drink, playing a fundamental role in the culture and economy
+                of various countries. Understanding and assessing coffee quality is of utmost importance for producers,
+                exporters, roasters and baristas.The <a href="https://www.coffeeinstitute.org/" target="_blank"
+                    rel="noopener noreferrer">Coffee Quality Institute</a> plays a crucial role in this context, being
+                responsible for establishing standards and guidelines for the evaluation and classification of coffee
+                quality. Its work is essential to ensure excellence and consistency in the coffee market, promoting the
+                appreciation and recognition of high-quality coffees.
+            </p>
+
+            <p>
+                by Larissa Lemos, Pedro Tokar and Vitor Nascimento
             </p>
         </div>
         <div class="text-container" id="text-graph1" style="display: none;">
-            <p>Here we have a scatterplot that plots the mean aftertaste against the mean aroma, by country.</p>
+            <p>Here we have a scatterplot that plots the mean aftertaste against the mean aroma, by country.
+
+            </p>
             <p>After analysing the Coffee Production Plot, we can that Brazil, despite being the biggest producer, has
                 some of the lowest scores in both aspects.
                 Ethiopia, on the other hand, is the second biggest producer while mantaining some of the highest scores
-                in the lots observed, with the best mean aftertaste and the second best mean aroma.</p>
+                in the lots observed, with the best mean aftertaste and the second best mean aroma.
+            </p>
+            <p>
+                by Larissa
+            </p>
         </div>
         <div class="text-container" id="text-graph2" style="display: none;">
 
@@ -47,6 +67,9 @@
                 For example, in the most common processing method, washing, many of the layers are removed before the
                 drying stage begins,
                 as opposed to natural processing, in which the fruit is dried before the removal of its layers.
+            </p>
+            <p>
+                by Larissa
             </p>
         </div>
         <div class="text-container" id="text-graph3" style="display: none;">
@@ -61,6 +84,9 @@
                 seedlings,
                 stunting growth, yellowing leaves, and even spawning stem tumors.
             </p>
+            <p>
+                by Larissa
+            </p>
         </div>
         <div class="text-container" id="text-graph4" style="display: none;">
             <p>This plot aims to show the correlation between the coffee's scores on
@@ -70,6 +96,9 @@
                 get higher too. the size of each dot shows how many coffees had tha specific
                 rating, since the scores are given in some cathegorical way, and plotting
                 without that would lead to some dots overlapping others.
+            </p>
+            <p>
+                by Pedro
             </p>
         </div>
         <div class="text-container" id="text-graph5" style="display: none;">
@@ -88,21 +117,65 @@
                 altitutes a country harvest their coffees, and also see if a country harvests
                 in a small range of altitudes or if it harvests in varying altitudes.
             </p>
+            <p>
+                by Pedro
+            </p>
         </div>
         <div class="text-container" id="text-graph7" style="display: none;">
+            <p>
+                The objective of this graph is to provide a visual representation of the correlations between coffee
+                scores in sensory variables. By listing the sensory variables on the X and Y axes, we can identify the
+                relationships between them. Each cell in the graph shows the correlation between two specific variables,
+                with the color of the cell indicating the strength of the correlation.
+            </p>
+            <p>
 
+                This visual representation allows for a deeper understanding of the interactions between the sensory
+                characteristics of coffee, which directly impact its overall quality.
+            </p>
+            <p>
+                by Vitor
+            </p>
         </div>
         <div class="text-container" id="text-graph8" style="display: none;">
+            <p>
+                The relationship between altitude and the flavor of coffee is that, generally, <a
+                    href="https://scribblerscoffee.com/blogs/news/the-effect-of-altitude-on-coffee-flavor"
+                    target="_blank">coffee grown at higher altitudes tends to have a more complex and distinctive
+                    flavor</a>. This is due to different climatic conditions, such as temperatures and humidity.
+                However, other factors such as coffee variety and cultivation practices also influence the final flavor.
+            </p>
+
+            <p>
+                That being said, the objective of the chart below is to demonstrate the relationship between the flavor
+                score of each coffee sample and the altitude at which it was grown.
+            </p>
+
+            <p>
+                by Vitor
+            </p>
 
         </div>
         <div class="text-container" id="text-graph9" style="display: none;">
+            <p>
+                Experts say that <a
+                    href="https://www.hunterlab.com/blog/spectrophotometric-color-evaluation-of-green-coffee-beans-for-optimal-quality-and-consistency/"
+                    target="_blank">the color of green coffee beans</a> (after they have dried) indicates various taste
+                traits of how the roasted coffee will be. The color of green coffee beans can be influenced by several
+                factors throughout cultivation, harvesting, drying, and processing. It provides essential hints about
+                the characteristics that a specific bean will acquire during the roasting and brewing process.
+                Acceptable beans are typically categorized into the following color categories:
 
-        </div>
+            </p>
 
-        <div id="buttons-container">
-            <button id="home" onclick="home()">home</button>
-            <button id="back" onclick="back()">&#8249;</button>
-            <button id="next" onclick="next()">&#8250;</button>
+            <p>
+                The objective of the following chart is to understand the relationship between the color of green coffee
+                beans and the score of taste attributes.
+            </p>
+
+            <p>
+                by Vitor
+            </p>
         </div>
     </div>
 
@@ -116,57 +189,57 @@
                 <div class="overlay">
                     <div class="preview-title">Average Aroma and Aftertaste Scores by Country</div>
                 </div>
-                <img src="images/graph1.png" alt="" srcset="">
+                <img class="preview-image" src="images/graph1.png" alt="" srcset="">
             </div>
             <div class="preview-card" id="graph2">
                 <div class="overlay">
                     <div class="preview-title">Processing Methods by Coffee Varieties</div>
                 </div>
-                <img src="images/graph2.png" alt="" srcset="">
+                <img class="preview-image" src="images/graph2.png" alt="" srcset="">
             </div>
             <div class="preview-card" id="graph3">
                 <div class="overlay">
                     <div class="preview-title">Kilos of Coffee Sent for Certification by Country</div>
                 </div>
-                <img src="images/graph3.png" alt="" srcset="">
+                <img class="preview-image" src="images/graph3.png" alt="" srcset="">
             </div>
 
             <div class="preview-card" id="graph4">
                 <div class="overlay">
                     <div class="preview-title">Flavor and Acidity Scores by Coffee Sample</div>
                 </div>
-                <img src="images/graph4.png" alt="" srcset="">
+                <img class="preview-image" src="images/graph4.png" alt="" srcset="">
             </div>
             <div class="preview-card" id="graph5">
                 <div class="overlay">
                     <div class="preview-title">Average Overall Score by Country</div>
                 </div>
-                <img src="images/graph5.png" alt="" srcset="">
+                <img class="preview-image" src="images/graph5.png" alt="" srcset="">
             </div>
             <div class="preview-card" id="graph6">
                 <div class="overlay">
                     <div class="preview-title">Altitude Distribution of Coffee Production by Country</div>
                 </div>
-                <img src="images/graph6.png" alt="" srcset="">
+                <img class="preview-image" src="images/graph6.png" alt="" srcset="">
             </div>
 
             <div class="preview-card" id="graph7">
                 <div class="overlay">
                     <div class="preview-title">Correlation of Coffee Score Attributes</div>
                 </div>
-                <img src="images/graph7.png" alt="" srcset="">
+                <img class="preview-image" src="images/graph7.png" alt="" srcset="">
             </div>
             <div class="preview-card" id="graph8">
                 <div class="overlay">
                     <div class="preview-title">Flavor Score and Average Altitude by Coffee Samples</div>
                 </div>
-                <img src="images/graph8.png" alt="" srcset="">
+                <img class="preview-image" src="images/graph8.png" alt="" srcset="">
             </div>
             <div class="preview-card" id="graph9">
                 <div class="overlay">
                     <div class="preview-title">Average Taste Scores By Green Coffee Color</div>
                 </div>
-                <img src="images/graph9.png" alt="" srcset="">
+                <img class="preview-image" src="images/graph9.png" alt="" srcset="">
             </div>
 
         </div>
