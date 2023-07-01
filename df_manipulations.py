@@ -144,7 +144,7 @@ def df_country_kilos(datapath):
     df_country_total_kilos["Country of Origin"] = df_country_total_kilos["Country of Origin"].replace(["Tanzania, United Republic Of"], "Tanzania")
     df_country_total_kilos["Country of Origin"] = df_country_total_kilos["Country of Origin"].replace(["United States (Hawaii)"], "Hawaii")
 
-    #Deleting suspiciously high values
+    #Some lots have the total weight in the "Bag Weight" column. I'll drop them and add them later
     df_country_total_kilos = df_country_total_kilos.drop(labels=[35, 116], axis=0)
     
     #Deleting missing values
@@ -174,6 +174,9 @@ def df_country_kilos(datapath):
                 if countries[subindex] == list_of_all_countries[index]:
                     kilos_per_country[subindex] += list_of_kilos[index]
 
+    #Readding the values deleted in "Bag Weight" column as the total weight
+    kilos_per_country[6] += 38400
+
     new_df = {
         "Countries" : countries,
         "Kilos of Coffee" : kilos_per_country
@@ -182,6 +185,14 @@ def df_country_kilos(datapath):
     return pd.DataFrame(new_df)
 
 def get_df_acidity_flavor(dataframe):
+    """
+    Creates the ColumnDataSource used in the acidity x flavor scatterplot.
+    The ColumnDataSource will already have the necessary count operations applied.
+
+    Returns:
+        bokeh.models.ColumnDataSource: datasource with desired data
+    """
+
     #Groups dataframe by flavor and acidity columns
     grouped_dataframe = dataframe.groupby(["Acidity", "Flavor"])
 
@@ -190,31 +201,28 @@ def get_df_acidity_flavor(dataframe):
     count_dataframe = grouped_dataframe.size().to_frame().reset_index()
     count_dataframe = count_dataframe.rename(columns = {0: "count"})
 
-    #Color schale to the points
-    color_scale = ["#939393", "#7E7E7E", "#696969", "#545454",
-                   "#3F3F3F", "#2A2A2A", "#151515", "#000000"]
-
-    #Auxiliary function to help adding the color scheme to the dataframe
-    def get_color_by_row(row):
-        number = int(row["count"]) - 1
-        return color_scale[number]
-
-    #Create a new column with the color corresponding to the number of times
-    #each pair appeared
-    count_dataframe["Color"] = count_dataframe.apply(get_color_by_row, axis = 1)
-
     #Create collumn with size (using count directily would make the dots very small)
-    count_dataframe["Size"] = count_dataframe["count"] + 3
+    count_dataframe["Size"] = count_dataframe["count"] * 2 + 5
 
     return ColumnDataSource(count_dataframe)
 
 def get_geojson_with_coffee_data(dataframe):
+    """
+    Creates the GeoJSONDataSource used in the overall mean map. The GeoJSON
+    have border informations for all countries, and this function adds data
+    about the overall score value in order bokeh can plot them.
+
+    Returns:
+        bokeh.models.GeoJSONDataSource: a geojson datasource with the map data
+    """
+
     #Group the dataframe by country
     grouped_dataframe = dataframe.groupby("Country of Origin")
     #Get a dictionary containing the mean of overall score for each country
     means = grouped_dataframe["Overall"].mean().to_dict()
 
     #Opens the GEOjson file containing the world map
+    #File downloaded at https://datahub.io/core/geo-countries
     with open("countries.geojson", "r") as f:
         world_map = json.load(f)
 
@@ -232,6 +240,14 @@ def get_geojson_with_coffee_data(dataframe):
     return bokeh_map_data_source
 
 def get_cds_altitude_country(dataframe):
+    """
+    Creates the ColumnDataSource needed to plot the boxplots with altitude data.
+    The necessary quantile operations and outliers filtering are done here.
+
+    Returns:
+        bokeh.models.ColumnDataSource: datasource with desired data
+    """
+
     #Gets dataframe with clean altitude data
     df = get_df_mean_altitude(dataframe[["Altitude", "Country of Origin"]])
 
@@ -279,7 +295,7 @@ def get_correlation_matrix(dataframe):
     """
 
     # Specify the columns to consider for correlation
-    columns = ["Aroma", "Flavor", "Aftertaste", "Acidity", "Body", "Balance", "Clean Cup", "Sweetness", "Overall", "Total Cup Points"]
+    columns = ["Aroma", "Flavor", "Aftertaste", "Acidity", "Body", "Balance", "Clean Cup", "Sweetness", "Overall"]
 
     # Select the columns from the dataframe
     df = dataframe[columns]
@@ -322,3 +338,16 @@ def get_df_mean_altitude(dataframe):
     df['Mean Altitude'] = mean_altitudes
 
     return df
+
+def get_means_by_color(dataframe):
+    df = dataframe
+
+    df.loc[df['Color'] == 'blue-green', 'Color'] = 'bluish-green'
+    df.loc[df['Color'] == 'green', 'Color'] = 'greenish'
+    df.loc[df['Color'] == 'yello-green', 'Color'] = 'yellow-green'
+    df.loc[df['Color'] == 'yellow green', 'Color'] = 'yellow-green'
+    df.loc[df['Color'] == 'yellow- green', 'Color'] = 'yellow-green'
+
+    mean_values = df.groupby('Color')[['Flavor', 'Body', "Moisture Percentage",'Acidity']].mean().reset_index()
+
+    return mean_values

@@ -11,12 +11,24 @@ def apply_default_style(p):
     """
     
     #Axis
-    p.xaxis.axis_label_text_font_size = '15px'
-    p.yaxis.axis_label_text_font_size = "15px"
+    p.xaxis.axis_label_text_font_size = '17px'
+    p.yaxis.axis_label_text_font_size = "17px"
     p.xaxis.axis_label_text_font_style = "bold"
     p.yaxis.axis_label_text_font_style = "bold"
     p.yaxis.axis_label_text_font = "Modern Love"
     p.xaxis.axis_label_text_font = "Modern Love"
+    p.xaxis.axis_line_width = 2
+    p.yaxis.axis_line_width = 2
+    p.xaxis.major_tick_line_width = 2
+    p.yaxis.major_tick_line_width = 2
+
+    p.xaxis.major_label_text_font_size = "9pt"
+    p.yaxis.major_label_text_font_size = "9pt"
+
+    p.xaxis.major_label_text_font_style = "bold"
+    p.yaxis.major_label_text_font_style = "bold"
+
+
 
     #Title
     p.title.text_font = "Modern Love"
@@ -28,34 +40,11 @@ def apply_default_style(p):
     p.ygrid.grid_line_color = None
 
     #Background
-    p.background_fill_color = "#FFC300"
-    p.background_fill_alpha = 0.2
+    p.background_fill_color = "#fff3cc"
 
     #Toolbar
     p.toolbar.logo = None
-    p.toolbar.autohide = True 
-
-    return p
-
-def apply_dotplot_style(p):
-    """
-
-    Receives a Bokeh figure() object and applies style elements meant for dotplots
-
-        Parameter: Bokeh figure() object
-
-        Return: figure() object with style applied
-    """
-
-    #Applies default style to get font styles and sizes
-    p = apply_default_style(p)
-
-    #Customize grids
-    p.grid.grid_line_color = "lightgrey"
-    p.grid.grid_line_alpha = 0.9
-    p.grid.minor_grid_line_color = "lightgrey"
-    p.grid.minor_grid_line_alpha = 0.5 #Weakier grids for minor ticks
-    p.grid.minor_grid_line_dash = "dotdash"
+    p.toolbar.autohide = True
 
     return p
 

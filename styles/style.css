@@ -1,0 +1,107 @@
+body {
+    font-size: large;
+    text-align: center;
+    margin: 0 0 50px 0;
+  }
+
+  h4 {
+    text-align: left;
+  }
+  
+  p {
+    text-align: justify;
+  }
+  
+  .preview-image {
+    height: 100%;
+    width: 100%;
+  }
+
+  #github-logo {
+    position: absolute;
+    top: 25px;
+    right: 10%;
+  }
+  
+  hr {
+    margin: 40px 0;
+  }
+  
+  .container {
+    margin: auto;
+    max-width: 50%;
+  }
+  
+  #buttons-container {
+    text-align: right;
+    margin-top: 40px;
+    margin-bottom: 40px;
+  }
+  
+#header {
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: black;
+    color: white;
+}
+
+  #card-wrapper {
+    text-align: center;
+  }
+  
+  .preview-card {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    display: inline-block;
+    margin: 10px;
+    border: 3px solid rgb(145, 130, 130);
+  }
+  
+  #graph-container {
+    text-align: center;
+  }
+  
+  .preview-title {
+    color: white;
+    font-weight: bolder;
+    font-size: 13px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+  }
+  
+  .preview-card:hover .overlay {
+    opacity: 1;
+    cursor: pointer;
+  }
+  
+  .overlay {
+    position: absolute;
+    top: -100;
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    transition: .5s ease;
+    background-color: rgb(165, 150, 150);
+  }
+  
+  button {
+    font-size: 1.2rem;
+    border: 3px solid rgb(145, 130, 130);
+    background: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+  }
+  
+  button:hover {
+    background-color: rgb(165, 150, 150);
+    color: white;
+  }
+  
