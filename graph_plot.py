@@ -20,8 +20,13 @@ def L_aroma_aftertaste(datapath):
 
     source = ColumnDataSource(data=data)
 
+    tooltips = [
+        ('Country', "@countries"),
+        ("Mean Aftertaste", "@x"),
+        ('Mean Aroma', '@y')]
+
     # Creating the plot
-    plot = figure(width=1200, height=750)
+    plot = figure(width=1200, height=750, tooltips=tooltips)
 
     plot.circle(x="x", y="y", source=source, fill_color="#732C02",
                 line_color="#732C02", size=12)
@@ -102,8 +107,8 @@ def L_country_kilos(datapath):
     source = ColumnDataSource(df)
 
     # Add glyph
-    plot.hbar(y='Countries', right='Kilos of Coffee', fill_color="red",
-              line_color="red", height=0.5, source=source)
+    plot.hbar(y='Countries', right='Kilos of Coffee', fill_color="#1680a4",
+              line_color="#1680a4", height=0.5, source=source)
 
     # Add annotations
     plot.text(x='Kilos of Coffee', y='Countries', text='Kilos of Coffee', text_baseline='middle', text_align='left',
